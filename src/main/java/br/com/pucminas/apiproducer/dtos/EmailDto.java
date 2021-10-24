@@ -1,11 +1,20 @@
 package br.com.pucminas.apiproducer.dtos;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
+import java.util.List;
 
-@Getter
-@Setter
-public class EmailDto {
-
-    private String nome;
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class EmailDto implements Serializable {
+    private String uuid;
+    private String de;
+    private String para;
+    private String assunto;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<String> emails;
+    private String corpo;
 }

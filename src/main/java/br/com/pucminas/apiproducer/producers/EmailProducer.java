@@ -5,6 +5,7 @@ import br.com.pucminas.apiproducer.dtos.EmailDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,10 +17,9 @@ public class EmailProducer {
     @Value(ApiConstants.RABBIT_QUEUE_NAME)
     private String queue;
 
-
+    @Async
     public void sendDataQueue(EmailDto emailDto){
         template.convertSendAndReceive(queue,emailDto);
     }
-
 
 }
