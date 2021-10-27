@@ -21,6 +21,7 @@ public class DatabaseConfig {
         String pass = dbUri.getUserInfo().split(":").length > 1 ?
                 dbUri.getUserInfo().split(":")[1] : "";
         String driver = "postgres".equalsIgnoreCase(dbUri.getScheme())
+
                 ? "postgresql" : dbUri.getScheme().trim().toLowerCase();
         String options = "?useUnicode=true&characterEncoding=utf-8&useTimezone=true&serverTimezone=UTC";
 
