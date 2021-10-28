@@ -8,5 +8,4 @@ import lombok.Data;
 public class ErroData {
     private Integer codigo;
     private String mensagem;
-
 }

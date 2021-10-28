@@ -25,6 +25,7 @@ public class UsuarioService {
     private final EmailProducer emailProducer;
     private final UsuarioRepository usuarioRepository;
     public static final String MSG_ERROR = "Usuario já cadastrado no banco de dados";
+    public static final String MSG_ERROR_USER_NOT_FOUND = "Usuario não encontrado";
 
     public UserResponseDto insereUsuario(UsersRequestDto user) {
         user.setUuid(UUID.randomUUID().toString());
@@ -49,6 +50,12 @@ public class UsuarioService {
                 .nome(usuario.getNome())
                 .usuarioId(usuario.getId())
                 .build();
+    }
+
+    public Usuario buscaUsuarioPorEmail(String email){
+        return usuarioRepository.findByEmail(email).orElseThrow(
+                () -> new UserException(MSG_ERROR_USER_NOT_FOUND, UUID.randomUUID().toString())
+        );
     }
 
     private void validaUsuarioExistente(UsersRequestDto user) {

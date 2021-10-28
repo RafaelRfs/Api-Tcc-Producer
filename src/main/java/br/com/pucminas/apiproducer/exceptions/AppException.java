@@ -1,4 +1,4 @@
-package com.pucminas.apiproducer.exceptions;
+package br.com.pucminas.apiproducer.exceptions;
 
 public class AppException extends RuntimeException {
 	

@@ -13,15 +13,18 @@ import java.security.cert.CertificateException;
 import java.time.Instant;
 import java.util.Date;
 import javax.annotation.PostConstruct;
+
+import br.com.pucminas.apiproducer.exceptions.AppException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import br.com.pucminas.apiproducer.configs.security.KeyStoreConfig;
-import com.pucminas.apiproducer.exceptions.AppException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class JwtProvider {
@@ -74,8 +77,13 @@ public class JwtProvider {
     }
 
     public boolean validateToken(String jwt) {
-        parser().setSigningKey(getPublickey()).parseClaimsJws(jwt);
-        return true;
+        try {
+            parser().setSigningKey(getPublickey()).parseClaimsJws(jwt);
+            return true;
+        } catch (Exception e){
+            log.error("Error ao receber o token: {}", e);
+            return false;
+        }
     }
 
     private PublicKey getPublickey() {

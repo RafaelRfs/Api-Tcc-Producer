@@ -8,13 +8,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import br.com.pucminas.apiproducer.configs.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
-
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
@@ -23,23 +23,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final UserDetailsService userDetailsService;
+	private static final String[] AUTH_LIST = {
+			"/api/auth/**",
+			"/v3/api-docs/**",
+			"/swagger-ui/3.49.0/**",
+			"/swagger-ui.html"
+	};
 
 	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable().authorizeRequests()
-				.antMatchers(
-						"/api/auth/**",
-						"/v3/api-docs/**",
-						"/swagger-ui/3.49.0/**",
-						"/swagger-ui.html"
-				)
-				.permitAll()
+		httpSecurity
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+				.csrf()
+				.disable()
+				.authorizeRequests()
+				.antMatchers(AUTH_LIST).permitAll()
 				.anyRequest()
 				.authenticated()
 				.and()
-				.exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED));
-		httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-		httpSecurity.cors();
+				.exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+				.and()
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.cors();
 	}
 
 	@Bean

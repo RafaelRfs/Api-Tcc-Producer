@@ -28,6 +28,4 @@ public class AuthController extends AbsController{
         return new ResponseEntity<>(authService.login(loginRequestDto), HttpStatus.OK);
     }
 
-
-
 }

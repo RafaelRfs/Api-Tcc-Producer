@@ -8,33 +8,25 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.SQLException;
 
 @Configuration
 public class DatabaseConfig {
 
     @Bean
     @Primary
-    public DataSource getDataSource(@Value("${postgresql.datasource.url}") String url) throws URISyntaxException, SQLException {
+    public DataSource getDataSource(@Value("${postgresql.datasource.url}") String url) throws URISyntaxException {
         URI dbUri = new URI(url);
         String user = dbUri.getUserInfo().split(":")[0];
         String pass = dbUri.getUserInfo().split(":").length > 1 ?
                 dbUri.getUserInfo().split(":")[1] : "";
         String driver = "postgres".equalsIgnoreCase(dbUri.getScheme())
-
                 ? "postgresql" : dbUri.getScheme().trim().toLowerCase();
         String options = "?useUnicode=true&characterEncoding=utf-8&useTimezone=true&serverTimezone=UTC";
-
-        DataSource dataSource = DataSourceBuilder.create()
+        return DataSourceBuilder.create()
                 .url(obterEndpoint(dbUri, driver, options))
                 .username(user)
                 .password(pass)
                 .build();
-
-        dataSource.getConnection();
-
-        return dataSource;
-
     }
 
     private String obterEndpoint(URI dbUri, String driver, String options) {

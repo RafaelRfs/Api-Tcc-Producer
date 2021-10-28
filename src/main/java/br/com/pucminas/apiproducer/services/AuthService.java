@@ -4,14 +4,19 @@ import br.com.pucminas.apiproducer.configs.security.jwt.JwtProvider;
 import br.com.pucminas.apiproducer.dtos.LoginRequestDto;
 import br.com.pucminas.apiproducer.dtos.UserResponseDto;
 import br.com.pucminas.apiproducer.dtos.UsersRequestDto;
+import br.com.pucminas.apiproducer.entities.Usuario;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Locale;
 
 @Slf4j
@@ -43,6 +48,25 @@ public class AuthService {
                 .build();
 
     }
+
+    @Transactional(readOnly = true)
+    public Usuario getCurrentUser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
+        return usuarioService.buscaUsuarioPorEmail(principal.getUsername());
+    }
+
+    public UserResponseDto refreshToken(){
+        return UserResponseDto.builder()
+                .token(jwtProvider
+                        .generateTokenWithUserName(
+                                getCurrentUser().getEmail()
+                        )
+                )
+                .build();
+    }
+
+
 
 
 
