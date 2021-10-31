@@ -18,7 +18,5 @@ public class UsersRequestDto {
     @NotEmpty(message = "valor invalido para o campo senha")
     @Size(min = 3, message = "o tamanho minimo para o campo senha é de 6 caracteres")
     private String senha;
-
     private String uuid;
-
 }

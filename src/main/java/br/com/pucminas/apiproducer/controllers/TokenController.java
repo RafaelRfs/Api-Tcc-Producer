@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(EndpointsConstants.TOKEN_ENDPOINT)
-public class TokenController {
+public class TokenController extends AbsController {
 
     private final AuthService authService;
 

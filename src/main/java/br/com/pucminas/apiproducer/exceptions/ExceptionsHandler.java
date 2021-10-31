@@ -11,14 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @ControllerAdvice
 public class ExceptionsHandler {
-    @ExceptionHandler(UserException.class)
-    public ResponseEntity<ErroData> geraErroUsuario(UserException userException, HttpServletRequest request){
-        log.error("Erro do usuario: {} /id: {}", userException.getMessage(), userException.getUuid());
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+    @ExceptionHandler(ApplicationException.class)
+    public ResponseEntity<ErroData> getUserError(ApplicationException applicationException, HttpServletRequest request){
+        log.error("Erro do usuario: {} /id: {}", applicationException.getMessage(), applicationException.getUuid());
+        return getResponseData(applicationException.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    private ResponseEntity<ErroData> getResponseData(String msg, HttpStatus status) {
         return ResponseEntity.status(status).body(
                 ErroData.builder()
                         .codigo(status.value())
-                        .mensagem(userException.getMessage())
+                        .mensagem(msg)
                         .build()
         );
     }

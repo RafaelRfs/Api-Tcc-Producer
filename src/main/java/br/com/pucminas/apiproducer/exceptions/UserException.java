@@ -1,13 +1,8 @@
 package br.com.pucminas.apiproducer.exceptions;
 
-import lombok.Getter;
+public class UserException extends ApplicationException{
 
-@Getter
-public class UserException extends RuntimeException{
-
-    private String uuid;
     public UserException(String msg, String uuid){
-        super(msg);
-        this.uuid = uuid;
+        super(msg, uuid);
     }
 }
