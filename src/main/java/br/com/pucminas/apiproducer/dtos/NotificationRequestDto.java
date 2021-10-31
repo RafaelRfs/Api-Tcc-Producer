@@ -18,7 +18,6 @@ import java.io.Serializable;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class NotificationRequestDto implements Serializable {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
