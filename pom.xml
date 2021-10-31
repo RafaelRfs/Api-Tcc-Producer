@@ -135,6 +135,14 @@
 							<version>${lombok.version}</version>
 						</path>
 					</annotationProcessorPaths>
+
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>br.com.pucminas.apiproducer.ApiProducerApplication</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
 
 			</plugin>
