@@ -3,7 +3,7 @@ package br.com.pucminas.apiproducer.services.impl;
 import br.com.pucminas.apiproducer.dtos.EmailDto;
 import br.com.pucminas.apiproducer.dtos.UserResponseDto;
 import br.com.pucminas.apiproducer.dtos.UsersRequestDto;
-import br.com.pucminas.apiproducer.entities.Usuario;
+import br.com.pucminas.apiproducer.entities.User;
 import br.com.pucminas.apiproducer.exceptions.UserException;
 import br.com.pucminas.apiproducer.producers.EmailProducer;
 import br.com.pucminas.apiproducer.repositories.UsuarioRepository;
@@ -32,7 +32,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UserResponseDto insertUser(UsersRequestDto user) {
         user.setUuid(UUID.randomUUID().toString());
         validaUsuarioExistente(user);
-        Usuario usuario = usuarioRepository.save(modelMapper.map(user, Usuario.class));
+        User usuario = usuarioRepository.save(modelMapper.map(user, User.class));
         emailProducer.sendDataQueue(
                 EmailDto.builder()
                         .uuid(user.getUuid())
@@ -55,7 +55,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario findUserByEmail(String email){
+    public User findUserByEmail(String email){
         return usuarioRepository.findByEmail(email).orElseThrow(
                 () -> new UserException(MSG_ERROR_USER_NOT_FOUND, UUID.randomUUID().toString())
         );

@@ -1,6 +1,6 @@
 package br.com.pucminas.apiproducer.configs.security;
 
-import br.com.pucminas.apiproducer.entities.Usuario;
+import br.com.pucminas.apiproducer.entities.User;
 import br.com.pucminas.apiproducer.repositories.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,8 +23,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Optional<Usuario> userOptional = usuarioRepository.findByEmail(email);
-		Usuario user = userOptional
+		Optional<User> userOptional = usuarioRepository.findByEmail(email);
+		User user = userOptional
 				.orElseThrow(() -> new UsernameNotFoundException("email não encontrado : " + email));
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getSenha(),
 				true, true, true, true, getAuthorities("USER"));

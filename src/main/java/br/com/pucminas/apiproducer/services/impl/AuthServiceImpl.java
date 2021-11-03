@@ -4,7 +4,7 @@ import br.com.pucminas.apiproducer.configs.security.jwt.JwtProvider;
 import br.com.pucminas.apiproducer.dtos.LoginRequestDto;
 import br.com.pucminas.apiproducer.dtos.UserResponseDto;
 import br.com.pucminas.apiproducer.dtos.UsersRequestDto;
-import br.com.pucminas.apiproducer.entities.Usuario;
+import br.com.pucminas.apiproducer.entities.User;
 import br.com.pucminas.apiproducer.services.AuthService;
 import br.com.pucminas.apiproducer.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional(readOnly = true)
-    public Usuario getCurrentUser() {
+    public User getCurrentUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         return usuarioService.findUserByEmail(principal.getUsername());

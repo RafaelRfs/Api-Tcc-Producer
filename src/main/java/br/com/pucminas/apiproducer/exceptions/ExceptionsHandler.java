@@ -17,6 +17,12 @@ public class ExceptionsHandler {
         return getResponseData(applicationException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ProjectNotFoundException.class)
+    public ResponseEntity<ErroData> getProjectNotFoundError(ProjectNotFoundException projectNotFoundException){
+        log.error("Erro de projeto: {} /id: {}", projectNotFoundException.getMessage(), projectNotFoundException.getProjectID());
+        return getResponseData(projectNotFoundException.getMessage(), HttpStatus.NO_CONTENT);
+    }
+
     private ResponseEntity<ErroData> getResponseData(String msg, HttpStatus status) {
         return ResponseEntity.status(status).body(
                 ErroData.builder()

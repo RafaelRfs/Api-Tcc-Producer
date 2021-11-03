@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Builder
@@ -25,16 +24,12 @@ public class Projeto implements Serializable {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
-    private Usuario usuario;
+    private User user;
 
     private String nome;
     private String cliente;
 
+    @Column(name = "data_previsao_entrega")
     private LocalDateTime dataPrevisaoEntrega;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Notificacao> notificacoes;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Timeline> timelines;
 }

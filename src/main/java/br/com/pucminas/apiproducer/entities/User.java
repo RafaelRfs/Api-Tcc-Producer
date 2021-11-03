@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.validation.constraints.NotBlank;
 
 @Data
@@ -17,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_usuarios")
-public class Usuario implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -40,9 +39,6 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_created")
     private Date dataCriacao;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Projeto> projetos;
 
     @Column(name = "uuid")
     @NotBlank(message = "UUID deve ser preenchido")
