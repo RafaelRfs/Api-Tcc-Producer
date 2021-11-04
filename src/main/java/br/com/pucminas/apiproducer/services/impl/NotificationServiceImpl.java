@@ -25,7 +25,6 @@ public class NotificationServiceImpl implements NotificationService {
     private final ProjectService projectService;
     private final NotificationMapper notificationMapper;
     private final NotificacaoRepository notificacaoRepository;
-
     public static final String MSG_ERROR_EMAIL_NOTIFICATICATION = "Email ja cadastrado para o projeto informado";
     public static final String MSG_ERROR_NOTIFICATION_NOT_FOUND = "Notificação nao encontrada";
     public static final String MSG_ERROR_PROJECT_NOT_FOUND = "Projeto nao encontrado pelo Id passado";

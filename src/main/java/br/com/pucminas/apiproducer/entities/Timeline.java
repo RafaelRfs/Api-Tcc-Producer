@@ -24,12 +24,18 @@ public class Timeline implements Serializable {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
-    private Projeto projeto;
+    private Projeto project;
 
     @OneToOne
     @JoinColumn(name = "status_id", referencedColumnName = "status_id")
     private Status status;
+
+    @Column(name = "descricao")
     private String descricao;
+
+    @Column(name = "url")
     private String url;
+
+    @Column(name = "data_postagem")
     private LocalDateTime dataPostagem;
 }

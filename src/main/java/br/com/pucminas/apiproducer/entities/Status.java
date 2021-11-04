@@ -18,7 +18,13 @@ public class Status implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "status_id")
     private Long id;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "cor")
     private String cor;
+
+    @Column(name = "icone")
     private String icone;
 }

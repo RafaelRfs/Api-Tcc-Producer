@@ -38,6 +38,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Projeto findEntityById(Long projectId) {
+        return this.findById(projectId)
+                .orElseThrow(() -> new ProjectNotFoundException(
+                                MSG_ERROR_PROJECT_NOT_FOUND,
+                                projectId
+                        )
+                );
+    }
+
+    @Override
     public List<ProjectRequestDto> findProjectsByUserId(Long userId) {
         return projectMapper.mapToListDto(
                 this.projectRepository.findByUserId(userId)
@@ -47,12 +57,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectRequestDto findProjectById(Long projectId) {
         return projectMapper.mapToDto(
-                this.findById(projectId)
-                        .orElseThrow(() -> new ProjectNotFoundException(
-                                        MSG_ERROR_PROJECT_NOT_FOUND,
-                                        projectId
-                                )
-                        )
+                findEntityById(projectId)
         );
     }
 }
