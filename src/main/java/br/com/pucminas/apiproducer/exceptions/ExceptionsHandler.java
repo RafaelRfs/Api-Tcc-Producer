@@ -17,6 +17,12 @@ public class ExceptionsHandler {
         return getResponseData(applicationException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserNotAuthorizedException.class)
+    public ResponseEntity<ErroData> getUserNotAuthorized(UserNotAuthorizedException applicationException, HttpServletRequest request){
+        log.error("Erro de autorizacao do usuario: {} ", applicationException.getMessage());
+        return getResponseData(applicationException.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(ProjectNotFoundException.class)
     public ResponseEntity<ErroData> getProjectNotFoundError(ProjectNotFoundException projectNotFoundException){
         log.error("Erro de projeto: {} /id: {}", projectNotFoundException.getMessage(), projectNotFoundException.getProjectID());

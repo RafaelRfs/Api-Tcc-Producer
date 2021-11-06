@@ -1,11 +1,9 @@
 package br.com.pucminas.apiproducer.services.impl;
 
-import br.com.pucminas.apiproducer.dtos.EmailDto;
 import br.com.pucminas.apiproducer.dtos.UserResponseDto;
 import br.com.pucminas.apiproducer.dtos.UsersRequestDto;
 import br.com.pucminas.apiproducer.entities.User;
 import br.com.pucminas.apiproducer.exceptions.UserException;
-import br.com.pucminas.apiproducer.producers.EmailProducer;
 import br.com.pucminas.apiproducer.repositories.UsuarioRepository;
 import br.com.pucminas.apiproducer.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Arrays;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -23,8 +21,8 @@ import java.util.UUID;
 public class UsuarioServiceImpl implements UsuarioService {
 
     private final ModelMapper modelMapper;
-    private final EmailProducer emailProducer;
     private final UsuarioRepository usuarioRepository;
+
     public static final String MSG_ERROR = "Usuario já cadastrado no banco de dados";
     public static final String MSG_ERROR_USER_NOT_FOUND = "Usuario não encontrado";
 
@@ -32,33 +30,32 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UserResponseDto insertUser(UsersRequestDto user) {
         user.setUuid(UUID.randomUUID().toString());
         validaUsuarioExistente(user);
-        User usuario = usuarioRepository.save(modelMapper.map(user, User.class));
-        emailProducer.sendDataQueue(
-                EmailDto.builder()
-                        .uuid(user.getUuid())
-                        .assunto("Adicionado novo usuario " + user.getNome())
-                        .corpo("Email >> " + user.getEmail())
-                        .emails(
-                                Arrays.asList(
-                                        user.getEmail()
-                                )
-                        )
-                        .de("teste@teste.com")
-                        .para("fulano@fulano.com")
-                        .build()
-        );
+        return saveUser(modelMapper.map(user, User.class));
+    }
 
+    @Override
+    public UserResponseDto updateUserData(User usr) {
+        return saveUser(usr);
+    }
+
+    private UserResponseDto saveUser(User usr) {
+        User user = usuarioRepository.save(usr);
         return UserResponseDto.builder()
-                .nome(usuario.getNome())
-                .usuarioId(usuario.getId())
+                .nome(user.getNome())
+                .usuarioId(user.getId())
                 .build();
     }
 
     @Override
-    public User findUserByEmail(String email){
-        return usuarioRepository.findByEmail(email).orElseThrow(
+    public User findUserByEmail(String email) {
+        return findByEmail(email).orElseThrow(
                 () -> new UserException(MSG_ERROR_USER_NOT_FOUND, UUID.randomUUID().toString())
         );
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
     }
 
     private void validaUsuarioExistente(UsersRequestDto user) {

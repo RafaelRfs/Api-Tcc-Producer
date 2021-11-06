@@ -6,10 +6,11 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Component
-public class EmailProducer {
+@Service
+public class EmailProducerServiceImpl implements EmailProducerService{
 
     @Autowired
     private RabbitTemplate template;
@@ -18,8 +19,21 @@ public class EmailProducer {
     private String queue;
 
     @Async
+
     public void sendDataQueue(EmailDto emailDto){
         template.convertSendAndReceive(queue,emailDto);
+    }
+
+    @Override
+    public void sendEmail(String uuid, String subject, String body, List<String> emails) {
+        sendDataQueue(
+                EmailDto.builder()
+                        .uuid(uuid)
+                        .assunto(subject)
+                        .corpo(body)
+                        .emails(emails)
+                        .build()
+        );
     }
 
 }

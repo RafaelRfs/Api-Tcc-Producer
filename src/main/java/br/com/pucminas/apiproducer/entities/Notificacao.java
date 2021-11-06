@@ -25,6 +25,10 @@ public class Notificacao implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
     private Projeto project;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "email")
     private String email;
 }

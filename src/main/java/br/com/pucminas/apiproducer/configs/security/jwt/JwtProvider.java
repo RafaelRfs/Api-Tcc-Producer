@@ -13,7 +13,6 @@ import java.security.cert.CertificateException;
 import java.time.Instant;
 import java.util.Date;
 import javax.annotation.PostConstruct;
-
 import br.com.pucminas.apiproducer.exceptions.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -39,7 +38,7 @@ public class JwtProvider {
             InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(keyStoreConfig.getPath());
             keyStore.load(resourceAsStream, keyStoreConfig.getSecret().toCharArray());
         } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException e) {
-            throw new AppException("Exception occurred while loading keystore");
+            throw new AppException("Um erro ao aconteceu ao processar o KeyStore");
         }
     }
 
@@ -68,11 +67,11 @@ public class JwtProvider {
                     keyStoreConfig.getSecret().toCharArray());
 
             if (result == null) {
-                throw new AppException("Key not Found");
+                throw new AppException("Chave privada nao encontrada");
             }
             return result;
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
-            throw new AppException("Exception occured while retrieving public key from keystore");
+            throw new AppException("Um erro aconteceu ao recuperar a chave privada da Keystore");
         }
     }
 
@@ -90,7 +89,7 @@ public class JwtProvider {
         try {
             return keyStore.getCertificate(keyStoreConfig.getKey()).getPublicKey();
         } catch (KeyStoreException e) {
-            throw new AppException("Exception occured while retrieving public key from keystore");
+            throw new AppException("Um erro aconteceu ao recuperar a chave publica da Keystore");
         }
     }
 

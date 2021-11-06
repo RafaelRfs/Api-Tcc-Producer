@@ -26,7 +26,10 @@ public class Projeto implements Serializable {
     @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
     private User user;
 
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "cliente")
     private String cliente;
 
     @Column(name = "data_previsao_entrega")

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -54,6 +55,14 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationMapper.maptoListDto(
                 notificacaoRepository.findByProjectId(projectId)
         );
+    }
+
+    @Override
+    public List<String> findEmailsByProject(Long projectId) {
+        return findNotificationByProjectId(projectId)
+                .stream()
+                .map(notification -> notification.getEmail())
+                .collect(Collectors.toList());
     }
 
     private void validaEmailCadastrado(NotificationRequestDto notificationRequest) {
