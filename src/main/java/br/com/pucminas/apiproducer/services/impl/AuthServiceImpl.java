@@ -73,10 +73,10 @@ public class AuthServiceImpl implements AuthService {
         validateProcessNewPassword(userUpdateRequestDto, user);
         validateEmail(userUpdateRequestDto, user);
         validateName(userUpdateRequestDto, user);
-        return processTokenResponse(user);
+        return updateUserAndProcessTokenResponse(user);
     }
 
-    private UserResponseDto processTokenResponse(User user) {
+    private UserResponseDto updateUserAndProcessTokenResponse(User user) {
         UserResponseDto response = usuarioService.updateUserData(user);
         response.setToken(
                 jwtProvider.generateTokenWithUserName(user.getEmail())
@@ -120,7 +120,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void validateOldPass(UserUpdateRequestDto userUpdateRequestDto, User user) {
-        userUpdateRequestDto.setSenha(userUpdateRequestDto.getSenha());
         getAuthentication(user.getEmail(), userUpdateRequestDto.getSenha());
     }
 
