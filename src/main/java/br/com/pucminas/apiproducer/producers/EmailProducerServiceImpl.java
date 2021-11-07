@@ -19,7 +19,6 @@ public class EmailProducerServiceImpl implements EmailProducerService{
     private String queue;
 
     @Async
-
     public void sendDataQueue(EmailDto emailDto){
         template.convertSendAndReceive(queue,emailDto);
     }

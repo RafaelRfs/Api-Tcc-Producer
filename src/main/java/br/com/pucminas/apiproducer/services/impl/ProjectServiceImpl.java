@@ -38,7 +38,6 @@ public class ProjectServiceImpl implements ProjectService {
     private final EmailProducerService emailProducerService;
     private final NotificationService notificationService;
 
-
     @Override
     public ProjectRequestDto createProject(ProjectRequestDto projectRequestDto) {
         User user = authService.getCurrentUser();

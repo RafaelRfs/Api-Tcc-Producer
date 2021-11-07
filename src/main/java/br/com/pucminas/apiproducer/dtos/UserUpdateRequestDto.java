@@ -1,6 +1,7 @@
 package br.com.pucminas.apiproducer.dtos;
 
 import br.com.pucminas.apiproducer.annotations.EmailValidator;
+import br.com.pucminas.apiproducer.annotations.NullAnythingTextValidator;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
@@ -25,14 +26,12 @@ public class UserUpdateRequestDto{
 
     @NotBlank(message = " preencha uma nova senha valida ")
     @Size(min = 6, message = "o tamanho minimo para o campo nova senha é de 6 caracteres")
-    private String senhaAntiga;
+    private String senha;
 
-    @NotBlank(message = " preencha uma nova senha valida ")
-    @Size(min = 6, message = "o tamanho minimo para o campo nova senha é de 6 caracteres")
+    @NullAnythingTextValidator(message = "valor minimo permitido de 6 caracteres", size = 6)
     private String novaSenha;
 
-    @NotBlank(message = " preencha a confirmação da nova senha valida ")
-    @Size(min = 6, message = "o tamanho minimo para o campo confirmação de senha é de 6 caracteres")
+    @NullAnythingTextValidator(message = "valor minimo permitido de 6 caracteres", size = 6)
     private String confirmacaoNovaSenha;
 
 }

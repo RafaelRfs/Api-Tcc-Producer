@@ -10,7 +10,7 @@ public class ApiProducerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiProducerApplication.class);
-		log.info("Api Gerenciadora de Notificacoes Online Versao 0.0.1");
+		log.info("Api Gerenciadora de Notificacoes Online Versao 1.0.0");
 	}
 
 }

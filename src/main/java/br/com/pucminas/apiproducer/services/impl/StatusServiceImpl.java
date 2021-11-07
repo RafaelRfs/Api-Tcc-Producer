@@ -23,7 +23,6 @@ public class StatusServiceImpl implements StatusService {
     private final StatusMapper statusMapper;
     private final StatusRepository statusRepository;
 
-
     @Override
     public StatusRequestDto createStatus(StatusRequestDto statusRequestDto) {
         Status status = statusMapper.map(statusRequestDto);

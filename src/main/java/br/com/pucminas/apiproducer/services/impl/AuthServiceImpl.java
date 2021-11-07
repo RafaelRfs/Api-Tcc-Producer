@@ -20,8 +20,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 
-import java.util.Locale;
 
 @Slf4j
 @Service
@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private String encodePassword(String password) {
-        return passwordEncoder.encode(password.toLowerCase(Locale.ROOT).trim());
+        return passwordEncoder.encode(password);
     }
 
     @Override
@@ -54,10 +54,15 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private String getToken(String username, String password) {
-        Authentication authenticate = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password.toLowerCase(Locale.ROOT)));
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        Authentication authenticate = getAuthentication(username, password);
         return jwtProvider.generateToken(authenticate);
+    }
+
+    private Authentication getAuthentication(String username, String password) {
+        Authentication authenticate = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        return authenticate;
     }
 
     @Override
@@ -65,23 +70,30 @@ public class AuthServiceImpl implements AuthService {
         User user = getCurrentUser();
         validateIDUser(userUpdateRequestDto, user);
         validateOldPass(userUpdateRequestDto, user);
-        validateConfirmationNewPassword(userUpdateRequestDto.getNovaSenha(), userUpdateRequestDto.getConfirmacaoNovaSenha(), ApiConstants.MSG_CONFIRMATION_NEW_PASS_INVALID);
-        processNewPassword(userUpdateRequestDto, user);
+        validateProcessNewPassword(userUpdateRequestDto, user);
         validateEmail(userUpdateRequestDto, user);
         validateName(userUpdateRequestDto, user);
+        return processTokenResponse(user);
+    }
 
+    private UserResponseDto processTokenResponse(User user) {
         UserResponseDto response = usuarioService.updateUserData(user);
-
-        response.setToken(getToken(
-                user.getEmail(),
-                user.getSenha()
-                )
+        response.setToken(
+                jwtProvider.generateTokenWithUserName(user.getEmail())
         );
         return response;
     }
 
+    private void validateProcessNewPassword(UserUpdateRequestDto userUpdateRequestDto, User user) {
+        Optional<String> optNewSenha = Optional.ofNullable(userUpdateRequestDto.getNovaSenha());
+        if (optNewSenha.isPresent() && !optNewSenha.get().isBlank()) {
+            validateConfirmationNewPassword(userUpdateRequestDto.getNovaSenha(), userUpdateRequestDto.getConfirmacaoNovaSenha(), ApiConstants.MSG_CONFIRMATION_NEW_PASS_INVALID);
+            processNewPassword(userUpdateRequestDto, user);
+        }
+    }
+
     private void validateName(UserUpdateRequestDto userUpdateRequestDto, User user) {
-        if(!user.getNome().equals(userUpdateRequestDto.getNome())){
+        if (!user.getNome().equals(userUpdateRequestDto.getNome())) {
             user.setNome(userUpdateRequestDto.getNome());
         }
     }
@@ -97,9 +109,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void processNewPassword(UserUpdateRequestDto userUpdateRequestDto, User user) {
-        if (!userUpdateRequestDto.getNovaSenha().trim().isBlank()) {
-            user.setSenha(encodePassword(userUpdateRequestDto.getNovaSenha()));
-        }
+        user.setSenha(encodePassword(userUpdateRequestDto.getNovaSenha()));
+        userUpdateRequestDto.setSenha(userUpdateRequestDto.getNovaSenha());
     }
 
     private void validateConfirmationNewPassword(String novaSenha, String confirmacaoNovaSenha, String msgConfirmationNewPassInvalid) {
@@ -109,18 +120,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void validateOldPass(UserUpdateRequestDto userUpdateRequestDto, User user) {
-        validateConfirmationNewPassword(user.getSenha(), userUpdateRequestDto.getSenhaAntiga(), ApiConstants.MSG_PASSWORD_INVALID);
+        userUpdateRequestDto.setSenha(userUpdateRequestDto.getSenha());
+        getAuthentication(user.getEmail(), userUpdateRequestDto.getSenha());
     }
 
     private void validateIDUser(UserUpdateRequestDto userUpdateRequestDto, User user) {
         if (!user.getId().equals(userUpdateRequestDto.getUserId())) {
             throw new UserNotAuthorizedException(ApiConstants.MSG_USER_NOT_AUTHORIZED);
         }
-    }
-
-    @Override
-    public Boolean deleteUserData(Long id) {
-        return null;
     }
 
     @Override

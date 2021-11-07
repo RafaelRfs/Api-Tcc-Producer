@@ -11,7 +11,6 @@ public interface AuthService {
     UserResponseDto signup(UsersRequestDto usersRequestDto);
     UserResponseDto login(LoginRequestDto loginRequestDto);
     UserResponseDto updateUserData(UserUpdateRequestDto userUpdateRequestDto);
-    Boolean deleteUserData(Long id);
     User getCurrentUser();
     UserResponseDto refreshToken();
 }

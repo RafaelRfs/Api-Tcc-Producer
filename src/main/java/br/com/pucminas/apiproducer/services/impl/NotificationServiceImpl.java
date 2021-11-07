@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import static br.com.pucminas.apiproducer.constants.ApiConstants.*;
 
 @Slf4j
@@ -44,8 +43,7 @@ public class NotificationServiceImpl implements NotificationService {
                 notificationRequest.getUuid()
                 )
         );
-        return notificacaoRepository
-                .save(notificacao) != null;
+        return notificacaoRepository.save(notificacao) != null;
     }
 
     public NotificationRequestDto findNotificationById(Long id) {
