@@ -9,6 +9,7 @@ public interface ProjectService {
     Optional<Projeto> findById(Long id);
     Projeto findEntityById(Long id);
     List<ProjectRequestDto> findProjectsByUserId(Long id);
+    List<String> findEmailsByProject(Long id);
     ProjectRequestDto findProjectById(Long id);
     ProjectRequestDto createProject(ProjectRequestDto projectRequestDto);
 }

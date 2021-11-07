@@ -13,7 +13,23 @@ public class ApiConstants {
     public static final String MSG_PASSWORD_INVALID = " senha antiga invalida ";
     public static final String MSG_CONFIRMATION_NEW_PASS_INVALID = " senha de confirmacao diferente da nova senha";
 
+
+    public static final String MSG_ERROR_PROJECT_NOT_FOUND = "projeto nao encontrado";
+    public static final String MSG_PROJECT_STARTED = "Projeto criado por %s";
+
     public static final String MSG_NEW_TIMELINE = "Nova Timeline Criada";
     public static final String MSG_NEW_TIMELINE_CREATED = "Nova timeline %s criada para o projeto: %s";
+    public static final String MSG_ERROR_TIMELINE_NOT_FOUND = "Timeline nao encontrada";
+
+    public static final String MSG_ERROR_EMAIL_NOTIFICATICATION = "Email ja cadastrado para o projeto informado";
+    public static final String MSG_ERROR_NOTIFICATION_NOT_FOUND = "Notificação nao encontrada";
+
+    public static final String MS_ERROR_STATUS_NOT_FOUND = "Status nao encontrado pelo Id";
+
+    public static final String MSG_ERROR = "Usuario já cadastrado no banco de dados";
+    public static final String MSG_ERROR_USER_NOT_FOUND = "Usuario não encontrado";
+
+
+
     private ApiConstants(){}
 }

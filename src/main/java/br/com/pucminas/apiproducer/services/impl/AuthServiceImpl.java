@@ -12,6 +12,7 @@ import br.com.pucminas.apiproducer.services.AuthService;
 import br.com.pucminas.apiproducer.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,8 +25,9 @@ import java.util.Locale;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthServiceImpl implements AuthService {
+
     private final UsuarioService usuarioService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;

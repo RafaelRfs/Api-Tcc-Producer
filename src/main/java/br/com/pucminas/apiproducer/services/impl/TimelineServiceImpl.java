@@ -9,30 +9,42 @@ import br.com.pucminas.apiproducer.exceptions.TimelineErrorException;
 import br.com.pucminas.apiproducer.mappers.TimelineMapper;
 import br.com.pucminas.apiproducer.producers.EmailProducerService;
 import br.com.pucminas.apiproducer.repositories.TimelineRepository;
-import br.com.pucminas.apiproducer.services.NotificationService;
 import br.com.pucminas.apiproducer.services.ProjectService;
 import br.com.pucminas.apiproducer.services.StatusService;
 import br.com.pucminas.apiproducer.services.TimelineService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_ERROR_TIMELINE_NOT_FOUND;
 
 @Slf4j
 @Service
 @Transactional(rollbackFor = RuntimeException.class)
-@RequiredArgsConstructor
 public class TimelineServiceImpl implements TimelineService {
+
     private final TimelineMapper timelineMapper;
     private final TimelineRepository timelineRepository;
     private final ProjectService projectService;
     private final StatusService statusService;
     private final EmailProducerService emailProducerService;
-    private final NotificationService notificationService;
-    public static final String MSG_ERROR_TIMELINE_NOT_FOUND = "Timeline nao encontrada";
+
+
+    public TimelineServiceImpl(TimelineMapper timelineMapper,
+                               TimelineRepository timelineRepository,
+                               @Lazy ProjectService projectService,
+                               StatusService statusService,
+                               EmailProducerService emailProducerService) {
+        this.timelineMapper = timelineMapper;
+        this.timelineRepository = timelineRepository;
+        this.projectService = projectService;
+        this.statusService = statusService;
+        this.emailProducerService = emailProducerService;
+    }
 
     @Override
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto, Projeto project) {
@@ -48,7 +60,7 @@ public class TimelineServiceImpl implements TimelineService {
                 UUID.randomUUID().toString(),
                 ApiConstants.MSG_NEW_TIMELINE,
                 String.format(ApiConstants.MSG_NEW_TIMELINE_CREATED, timelineRequestDto.getDescricao(), project.getNome()),
-                notificationService.findEmailsByProject(project.getId())
+                projectService.findEmailsByProject(project.getId())
         );
         return response;
     }
@@ -59,8 +71,7 @@ public class TimelineServiceImpl implements TimelineService {
                 TimelineRequestDto.builder()
                         .dataPostagem(LocalDateTime.now())
                         .descricao(description)
-                        .build(),
-                project
+                        .build(), project
         );
     }
 

@@ -8,19 +8,21 @@ import br.com.pucminas.apiproducer.repositories.StatusRepository;
 import br.com.pucminas.apiproducer.services.StatusService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import static br.com.pucminas.apiproducer.constants.ApiConstants.MS_ERROR_STATUS_NOT_FOUND;
 
 @Slf4j
 @Service
 @Transactional(rollbackFor = RuntimeException.class)
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StatusServiceImpl implements StatusService {
 
     private final StatusMapper statusMapper;
     private final StatusRepository statusRepository;
-    public static final String MS_ERROR_STATUS_NOT_FOUND = "Status nao encontrado pelo Id";
+
 
     @Override
     public StatusRequestDto createStatus(StatusRequestDto statusRequestDto) {

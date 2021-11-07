@@ -8,27 +8,34 @@ import br.com.pucminas.apiproducer.mappers.NotificationMapper;
 import br.com.pucminas.apiproducer.repositories.NotificacaoRepository;
 import br.com.pucminas.apiproducer.services.NotificationService;
 import br.com.pucminas.apiproducer.services.ProjectService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static br.com.pucminas.apiproducer.constants.ApiConstants.*;
+
 @Slf4j
 @Service
 @Transactional(rollbackFor = RuntimeException.class)
-@RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
 
     private final ProjectService projectService;
     private final NotificationMapper notificationMapper;
     private final NotificacaoRepository notificacaoRepository;
-    public static final String MSG_ERROR_EMAIL_NOTIFICATICATION = "Email ja cadastrado para o projeto informado";
-    public static final String MSG_ERROR_NOTIFICATION_NOT_FOUND = "Notificação nao encontrada";
-    public static final String MSG_ERROR_PROJECT_NOT_FOUND = "Projeto nao encontrado pelo Id passado";
+
+    public NotificationServiceImpl(@Lazy ProjectService projectService,
+                                   NotificationMapper notificationMapper,
+                                   NotificacaoRepository notificacaoRepository) {
+        this.projectService = projectService;
+        this.notificationMapper = notificationMapper;
+        this.notificacaoRepository = notificacaoRepository;
+    }
 
     public Boolean insertNotification(NotificationRequestDto notificationRequest) {
         validaEmailCadastrado(notificationRequest);
@@ -67,7 +74,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     private void validaEmailCadastrado(NotificationRequestDto notificationRequest) {
         Optional<Notificacao> optionalNotificacao = notificacaoRepository.findFirstByEmail(notificationRequest.getEmail());
-        if (optionalNotificacao.isPresent() && optionalNotificacao.get().getProject().getId().equals(notificationRequest.getProjetoId()) ){
+        if (optionalNotificacao.isPresent() && optionalNotificacao.get().getProject().getId().equals(notificationRequest.getProjetoId())) {
             throw new NotificationErrorException(MSG_ERROR_EMAIL_NOTIFICATICATION, UUID.randomUUID().toString());
         }
     }

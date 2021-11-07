@@ -9,22 +9,22 @@ import br.com.pucminas.apiproducer.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.UUID;
+import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_ERROR;
+import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_ERROR_USER_NOT_FOUND;
 
 @Slf4j
 @Service
 @Transactional(rollbackFor = RuntimeException.class)
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UsuarioServiceImpl implements UsuarioService {
 
     private final ModelMapper modelMapper;
     private final UsuarioRepository usuarioRepository;
-
-    public static final String MSG_ERROR = "Usuario já cadastrado no banco de dados";
-    public static final String MSG_ERROR_USER_NOT_FOUND = "Usuario não encontrado";
 
     @Override
     public UserResponseDto insertUser(UsersRequestDto user) {

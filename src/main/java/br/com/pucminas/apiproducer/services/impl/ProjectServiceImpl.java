@@ -15,18 +15,20 @@ import br.com.pucminas.apiproducer.services.ProjectService;
 import br.com.pucminas.apiproducer.services.TimelineService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_ERROR_PROJECT_NOT_FOUND;
+import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_PROJECT_STARTED;
 
 @Slf4j
 @Service
 @Transactional(rollbackFor = RuntimeException.class)
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ProjectServiceImpl implements ProjectService {
 
     private final AuthService authService;
@@ -36,8 +38,6 @@ public class ProjectServiceImpl implements ProjectService {
     private final EmailProducerService emailProducerService;
     private final NotificationService notificationService;
 
-    public static final String MSG_ERROR_PROJECT_NOT_FOUND = "projeto nao encontrado";
-    public static final String MSG_PROJECT_STARTED = "Projeto criado por %s";
 
     @Override
     public ProjectRequestDto createProject(ProjectRequestDto projectRequestDto) {
@@ -86,6 +86,11 @@ public class ProjectServiceImpl implements ProjectService {
         return projectMapper.mapToListDto(
                 this.projectRepository.findByUserId(userId)
         );
+    }
+
+    @Override
+    public List<String> findEmailsByProject(Long id) {
+        return notificationService.findEmailsByProject(id);
     }
 
     @Override
