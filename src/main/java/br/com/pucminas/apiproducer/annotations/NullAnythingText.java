@@ -12,6 +12,9 @@ public class NullAnythingText implements ConstraintValidator<NullAnythingTextVal
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return (null == s || s.isBlank()) || (s.length() >= size) ;
+
+        if (null == s || s.isBlank()) return true;
+
+        return (s.length() >= size) ;
     }
 }
