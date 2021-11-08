@@ -25,7 +25,7 @@ public class UserUpdateRequestDto{
     private String email;
 
     @NotBlank(message = " preencha uma nova senha valida ")
-    @Size(min = 6, message = "o tamanho minimo para o campo nova senha é de 6 caracteres")
+    @Size(min = 3, message = "o tamanho minimo para o campo nova senha é de 3 caracteres")
     private String senha;
 
     @NullAnythingTextValidator(message = "valor minimo permitido de 6 caracteres", size = 6)
