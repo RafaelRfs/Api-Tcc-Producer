@@ -37,6 +37,7 @@ public class ExceptionsHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErroData> getBadRequestErrors(MethodArgumentNotValidException methodArgumentNotValidException){
 
+        log.error("Erro ao validar os campos: {} ", methodArgumentNotValidException.getMessage());
         List<Campos> campos = methodArgumentNotValidException
                 .getBindingResult()
                 .getFieldErrors()
@@ -44,7 +45,7 @@ public class ExceptionsHandler {
                 .map(fieldError -> new Campos(fieldError.getField(), fieldError.getDefaultMessage()))
                 .collect(Collectors.toList());
 
-        return getResponseData(methodArgumentNotValidException.getMessage(),campos, HttpStatus.BAD_REQUEST);
+        return getResponseData("Erro na validacao de campos ",campos, HttpStatus.BAD_REQUEST);
 
     }
 
