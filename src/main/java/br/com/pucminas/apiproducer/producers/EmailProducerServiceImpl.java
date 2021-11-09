@@ -28,6 +28,8 @@ public class EmailProducerServiceImpl implements EmailProducerService{
         sendDataQueue(
                 EmailDto.builder()
                         .uuid(uuid)
+                        .de("site@teste.com")
+                        .para("teste@teste.com")
                         .assunto(subject)
                         .corpo(body)
                         .emails(emails)
