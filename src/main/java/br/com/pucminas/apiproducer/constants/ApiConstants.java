@@ -28,8 +28,6 @@ public class ApiConstants {
 
     public static final String MSG_ERROR = "Usuario já cadastrado no banco de dados";
     public static final String MSG_ERROR_USER_NOT_FOUND = "Usuario não encontrado";
-
-
-
+    
     private ApiConstants(){}
 }

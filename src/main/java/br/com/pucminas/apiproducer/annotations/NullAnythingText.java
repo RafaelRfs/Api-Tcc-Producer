@@ -11,7 +11,6 @@ public class NullAnythingText implements ConstraintValidator<NullAnythingTextVal
     @Override
     public void initialize(NullAnythingTextValidator nullAnythingTextValidator){
         this.length = nullAnythingTextValidator.length();
-
     }
 
     @Override

@@ -3,7 +3,6 @@ package br.com.pucminas.apiproducer.dtos.erro;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.List;
 
 @Data
