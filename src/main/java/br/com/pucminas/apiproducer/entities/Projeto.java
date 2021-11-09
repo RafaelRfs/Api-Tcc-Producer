@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -33,6 +34,6 @@ public class Projeto implements Serializable {
     private String cliente;
 
     @Column(name = "data_previsao_entrega")
-    private LocalDateTime dataPrevisaoEntrega;
+    private LocalDate dataPrevisaoEntrega;
 
 }
