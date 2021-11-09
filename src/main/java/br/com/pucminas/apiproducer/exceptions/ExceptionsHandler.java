@@ -51,7 +51,7 @@ public class ExceptionsHandler {
     }
 
     private String getSnakeCase(String value){
-        return value.replaceAll("([a-z][A-Z]+)", "$1_$2").toLowerCase(Locale.ROOT);
+        return value.replaceAll("([a-z])([A-Z]+)", "$1_$2").toLowerCase(Locale.ROOT);
     }
 
     private ResponseEntity<ErroData> getResponseData(String msg, List<Campos> campos, HttpStatus status) {
