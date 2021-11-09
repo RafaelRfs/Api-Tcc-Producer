@@ -28,10 +28,10 @@ public class UserUpdateRequestDto{
     @Size(min = 1, message = "o tamanho minimo para o campo nova senha é de 6 caracteres")
     private String senha;
 
-    @NullAnythingTextValidator(message = "valor minimo permitido de 6 caracteres", size = 6)
+    @NullAnythingTextValidator(message = "valor minimo permitido de 6 caracteres", length = 6)
     private String novaSenha;
 
-    @NullAnythingTextValidator(message = "valor minimo permitido de 6 caracteres", size = 6)
+    @NullAnythingTextValidator(message = "valor minimo permitido de 6 caracteres", length = 6)
     private String confirmacaoNovaSenha;
 
 }

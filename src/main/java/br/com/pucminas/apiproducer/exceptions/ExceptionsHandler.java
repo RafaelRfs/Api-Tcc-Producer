@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -42,11 +43,15 @@ public class ExceptionsHandler {
                 .getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(fieldError -> new Campos(fieldError.getField(), fieldError.getDefaultMessage()))
+                .map(fieldError -> new Campos(getSnakeCase(fieldError.getField()), fieldError.getDefaultMessage()))
                 .collect(Collectors.toList());
 
         return getResponseData("Erro na validacao de campos ",campos, HttpStatus.BAD_REQUEST);
 
+    }
+
+    private String getSnakeCase(String value){
+        return value.replaceAll("([a-z][A-Z]+)", "$1_$2").toLowerCase(Locale.ROOT);
     }
 
     private ResponseEntity<ErroData> getResponseData(String msg, List<Campos> campos, HttpStatus status) {

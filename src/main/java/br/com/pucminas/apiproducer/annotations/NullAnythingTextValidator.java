@@ -5,12 +5,12 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Constraint(validatedBy = {NullAnythingText.class})
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD})
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
 public @interface NullAnythingTextValidator {
 
-    int size();
+    int length() default 6;
 
     String message() default "Texto invalido";
 
