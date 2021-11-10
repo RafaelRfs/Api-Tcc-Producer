@@ -2,6 +2,7 @@ package br.com.pucminas.apiproducer.controllers;
 
 import br.com.pucminas.apiproducer.constants.EndpointsConstants;
 import br.com.pucminas.apiproducer.dtos.NotificationRequestDto;
+import br.com.pucminas.apiproducer.dtos.NotificationUpdateRequestDto;
 import br.com.pucminas.apiproducer.services.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
+
 
 @CrossOrigin
 @RestController
@@ -27,6 +29,12 @@ public class NotificationController extends AbsController {
         return ResponseEntity.created(null).build();
     }
 
+    @PutMapping
+    public ResponseEntity<?> updateNotification(@RequestBody @Valid NotificationUpdateRequestDto notificationRequest) {
+        notificationService.updateNotification(notificationRequest);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<NotificationRequestDto> findNotificationById(@PathVariable Long id) {
         return ResponseEntity.ok(
@@ -35,10 +43,16 @@ public class NotificationController extends AbsController {
     }
 
     @GetMapping("/by-project/{projectId}")
-    public ResponseEntity<List<NotificationRequestDto>> findNotificationByProjectId(@PathVariable Long projectId){
+    public ResponseEntity<List<NotificationRequestDto>> findNotificationByProjectId(@PathVariable Long projectId) {
         return ResponseEntity.ok(
                 notificationService.findNotificationByProjectId(projectId)
         );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteNotificationById(@PathVariable Long id) {
+        notificationService.deleteNotification(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

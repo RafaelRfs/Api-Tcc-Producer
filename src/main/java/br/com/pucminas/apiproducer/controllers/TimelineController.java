@@ -2,10 +2,12 @@ package br.com.pucminas.apiproducer.controllers;
 
 import br.com.pucminas.apiproducer.constants.EndpointsConstants;
 import br.com.pucminas.apiproducer.dtos.TimelineRequestDto;
+import br.com.pucminas.apiproducer.dtos.TimelineUpdateRequestDto;
 import br.com.pucminas.apiproducer.services.TimelineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -27,15 +29,27 @@ public class TimelineController extends AbsController {
         ).body(response);
     }
 
+    @PutMapping
+    public ResponseEntity<?> createTimeline(@RequestBody @Valid TimelineUpdateRequestDto request) {
+        timelineService.updateTimeline(request);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/{timelineId}")
-    public ResponseEntity<TimelineRequestDto> findTimelineById(@PathVariable Long timelineId){
+    public ResponseEntity<TimelineRequestDto> findTimelineById(@PathVariable Long timelineId) {
         return ResponseEntity.ok(
                 timelineService.findById(timelineId)
         );
     }
 
+    @DeleteMapping("/{timelineId}")
+    public ResponseEntity<?> deleteTimelineById(@PathVariable Long timelineId) {
+        timelineService.deleteTimeline(timelineId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/by-project/{projectId}")
-    public ResponseEntity<List<TimelineRequestDto>> findTimelinesByProject(@PathVariable Long projectId){
+    public ResponseEntity<List<TimelineRequestDto>> findTimelinesByProject(@PathVariable Long projectId) {
         return ResponseEntity.ok(
                 timelineService.findTimelinesByProjectId(projectId)
         );

@@ -1,6 +1,7 @@
 package br.com.pucminas.apiproducer.mappers;
 
 import br.com.pucminas.apiproducer.dtos.ProjectRequestDto;
+import br.com.pucminas.apiproducer.dtos.ProjectUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Projeto;
 import br.com.pucminas.apiproducer.entities.User;
 import org.mapstruct.Mapper;

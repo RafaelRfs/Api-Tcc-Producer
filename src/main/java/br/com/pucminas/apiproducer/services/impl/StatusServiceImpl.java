@@ -1,6 +1,7 @@
 package br.com.pucminas.apiproducer.services.impl;
 
 import br.com.pucminas.apiproducer.dtos.StatusRequestDto;
+import br.com.pucminas.apiproducer.dtos.StatusUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Status;
 import br.com.pucminas.apiproducer.exceptions.StatusErrorException;
 import br.com.pucminas.apiproducer.mappers.StatusMapper;
@@ -28,6 +29,22 @@ public class StatusServiceImpl implements StatusService {
         Status status = statusMapper.map(statusRequestDto);
         return statusMapper.mapToDto(
                 statusRepository.save(status)
+        );
+    }
+
+    @Override
+    public void updateStatus(StatusUpdateRequestDto statusUpdateRequestDto) {
+        Status status =  findById(statusUpdateRequestDto.getId());
+        status.setCor(statusUpdateRequestDto.getCor());
+        status.setIcone(statusUpdateRequestDto.getIcone());
+        status.setNome(statusUpdateRequestDto.getNome());
+        statusRepository.save(status);
+    }
+
+    @Override
+    public void deleteById(Long statusId) {
+        statusRepository.delete(
+                findById(statusId)
         );
     }
 

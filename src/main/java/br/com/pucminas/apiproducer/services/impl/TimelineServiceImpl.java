@@ -2,6 +2,7 @@ package br.com.pucminas.apiproducer.services.impl;
 
 import br.com.pucminas.apiproducer.constants.ApiConstants;
 import br.com.pucminas.apiproducer.dtos.TimelineRequestDto;
+import br.com.pucminas.apiproducer.dtos.TimelineUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Projeto;
 import br.com.pucminas.apiproducer.entities.Status;
 import br.com.pucminas.apiproducer.entities.Timeline;
@@ -65,6 +66,27 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     @Override
+    public void updateTimeline(TimelineUpdateRequestDto timelineUpdateRequestDto) {
+        Projeto project = projectService.findEntityById(timelineUpdateRequestDto.getProjetoId());
+        Status status = statusService.findById(timelineUpdateRequestDto.getStatusId());
+        Timeline timeline =  getTimeline(timelineUpdateRequestDto.getId());
+
+        timeline.setProject(project);
+        timeline.setStatus(status);
+        timeline.setDescricao(timelineUpdateRequestDto.getDescricao());
+        timeline.setUrl(timelineUpdateRequestDto.getUrl());
+
+        timelineRepository.save(timeline);
+    }
+
+    @Override
+    public void deleteTimeline(Long id) {
+        timelineRepository.delete(
+                getTimeline(id)
+        );
+    }
+
+    @Override
     public void createInitialTimeline(String description, Projeto project) {
         this.createTimeline(
                 TimelineRequestDto.builder()
@@ -84,9 +106,13 @@ public class TimelineServiceImpl implements TimelineService {
     @Override
     public TimelineRequestDto findById(Long id) {
         return timelineMapper.mapToDto(
-                timelineRepository.findById(id)
-                        .orElseThrow(() -> new TimelineErrorException(MSG_ERROR_TIMELINE_NOT_FOUND))
+                getTimeline(id)
         );
+    }
+
+    private Timeline getTimeline(Long id) {
+        return timelineRepository.findById(id)
+                .orElseThrow(() -> new TimelineErrorException(MSG_ERROR_TIMELINE_NOT_FOUND));
     }
 
     @Override

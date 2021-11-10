@@ -1,6 +1,7 @@
 package br.com.pucminas.apiproducer.services.impl;
 
 import br.com.pucminas.apiproducer.dtos.NotificationRequestDto;
+import br.com.pucminas.apiproducer.dtos.NotificationUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Notificacao;
 import br.com.pucminas.apiproducer.entities.Projeto;
 import br.com.pucminas.apiproducer.exceptions.NotificationErrorException;
@@ -37,7 +38,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     public Boolean insertNotification(NotificationRequestDto notificationRequest) {
-        validaEmailCadastrado(notificationRequest);
+        validaEmailCadastrado(notificationRequest.getEmail(), notificationRequest.getProjetoId());
         Notificacao notificacao = notificationMapper.map(notificationRequest, getProjectById(
                 notificationRequest.getProjetoId(),
                 notificationRequest.getUuid()
@@ -46,14 +47,43 @@ public class NotificationServiceImpl implements NotificationService {
         return notificacaoRepository.save(notificacao) != null;
     }
 
+    @Override
+    public void updateNotification(NotificationUpdateRequestDto notificationUpdateRequestDto) {
+
+        Notificacao notificacaoAntiga = getNotification(notificationUpdateRequestDto.getId());
+
+        if(!notificacaoAntiga.getEmail().equals(notificationUpdateRequestDto.getEmail())){
+            validaEmailCadastrado(notificationUpdateRequestDto.getEmail(), notificationUpdateRequestDto.getProjetoId());
+        }
+
+        Notificacao notificacao = notificationMapper.map(notificationUpdateRequestDto, getProjectById(
+                notificationUpdateRequestDto.getProjetoId(),
+                notificationUpdateRequestDto.getUuid()
+                )
+        );
+
+        notificacaoRepository.save(notificacao);
+    }
+
+    @Override
+    public void deleteNotification(Long id) {
+        notificacaoRepository.delete(
+                getNotification(id)
+        );
+    }
+
     public NotificationRequestDto findNotificationById(Long id) {
-        return notificationMapper.mapToDto(notificacaoRepository.findById(id)
+        return notificationMapper.mapToDto(getNotification(id)
+        );
+    }
+
+    private Notificacao getNotification(Long id) {
+        return notificacaoRepository.findById(id)
                 .orElseThrow(() -> new NotificationErrorException(
                                 MSG_ERROR_NOTIFICATION_NOT_FOUND,
                                 UUID.randomUUID().toString()
                         )
-                )
-        );
+                );
     }
 
     public List<NotificationRequestDto> findNotificationByProjectId(Long projectId) {
@@ -70,9 +100,9 @@ public class NotificationServiceImpl implements NotificationService {
                 .collect(Collectors.toList());
     }
 
-    private void validaEmailCadastrado(NotificationRequestDto notificationRequest) {
-        Optional<Notificacao> optionalNotificacao = notificacaoRepository.findFirstByEmail(notificationRequest.getEmail());
-        if (optionalNotificacao.isPresent() && optionalNotificacao.get().getProject().getId().equals(notificationRequest.getProjetoId())) {
+    private void validaEmailCadastrado(String email,Long projectId) {
+        Optional<Notificacao> optionalNotificacao = notificacaoRepository.findFirstByEmail(email);
+        if (optionalNotificacao.isPresent() && optionalNotificacao.get().getProject().getId().equals(projectId)) {
             throw new NotificationErrorException(MSG_ERROR_EMAIL_NOTIFICATICATION, UUID.randomUUID().toString());
         }
     }

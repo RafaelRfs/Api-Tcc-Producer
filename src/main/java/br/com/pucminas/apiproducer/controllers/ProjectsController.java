@@ -2,6 +2,7 @@ package br.com.pucminas.apiproducer.controllers;
 
 import br.com.pucminas.apiproducer.constants.EndpointsConstants;
 import br.com.pucminas.apiproducer.dtos.ProjectRequestDto;
+import br.com.pucminas.apiproducer.dtos.ProjectUpdateRequestDto;
 import br.com.pucminas.apiproducer.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +29,22 @@ public class ProjectsController extends AbsController {
                 .ok(projectService.findProjectById(projectId));
     }
 
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<?> deleteById(@PathVariable Long projectId) {
+        projectService.deleteById(projectId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/by-user/{userId}")
     public ResponseEntity<Object> findProjectsByUser(@PathVariable Long userId) {
         return ResponseEntity
                 .ok(projectService.findProjectsByUserId(userId));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateProject(@RequestBody @Valid ProjectUpdateRequestDto projectRequestDto) {
+        projectService.updateProject(projectRequestDto);
+        return ResponseEntity.noContent().build();
     }
 
 }

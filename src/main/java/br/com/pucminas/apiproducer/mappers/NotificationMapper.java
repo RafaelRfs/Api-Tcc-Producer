@@ -1,6 +1,7 @@
 package br.com.pucminas.apiproducer.mappers;
 
 import br.com.pucminas.apiproducer.dtos.NotificationRequestDto;
+import br.com.pucminas.apiproducer.dtos.NotificationUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Notificacao;
 import br.com.pucminas.apiproducer.entities.Projeto;
 import org.mapstruct.Mapper;
@@ -22,5 +23,11 @@ public interface NotificationMapper {
     NotificationRequestDto mapToDto(Notificacao notification);
 
     List<NotificationRequestDto> maptoListDto(List<Notificacao> notifications);
+
+    @Mapping(target = "id", source = "notificationUpdateRequestDto.id")
+    @Mapping(target = "nome", source = "notificationUpdateRequestDto.nome")
+    @Mapping(target = "email", source = "notificationUpdateRequestDto.email")
+    @Mapping(target = "project", source = "project")
+    Notificacao map(NotificationUpdateRequestDto notificationUpdateRequestDto, Projeto project);
 
 }

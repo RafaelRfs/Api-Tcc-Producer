@@ -7,18 +7,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class ProjectRequestDto implements Serializable {
+public class ProjectUpdateRequestDto implements Serializable {
+
+    @NotNull(message = "necessario informar o campo id do projeto")
     private Long id;
+
+    @NotNull(message = "necessario informar o id do usuario do projeto")
     private Long usuarioId;
 
     @NotBlank(message = "necessario informar o nome projeto")
