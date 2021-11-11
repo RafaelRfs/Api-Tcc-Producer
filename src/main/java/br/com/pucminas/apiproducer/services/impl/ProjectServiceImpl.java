@@ -97,6 +97,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     private void deleteProject(Long projectId) {
+        Projeto project = findEntityById(projectId);
+        project.setUser(null);
+        projectRepository.save(project);
         projectRepository.delete(
                 findEntityById(projectId)
         );

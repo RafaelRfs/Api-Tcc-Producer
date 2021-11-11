@@ -81,8 +81,15 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public void deleteTimeline(Long id) {
+
+        Timeline timeline = getTimeline(id);
+
+        timeline.setProject(null);
+
+        timelineRepository.save(timeline);
+
         timelineRepository.delete(
-                getTimeline(id)
+                timeline
         );
     }
 

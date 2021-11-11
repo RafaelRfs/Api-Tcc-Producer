@@ -22,9 +22,6 @@ public class ProjectUpdateRequestDto implements Serializable {
     @NotNull(message = "necessario informar o campo id do projeto")
     private Long id;
 
-    @NotNull(message = "necessario informar o id do usuario do projeto")
-    private Long usuarioId;
-
     @NotBlank(message = "necessario informar o nome projeto")
     private String nome;
 

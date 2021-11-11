@@ -32,7 +32,7 @@ public class ExceptionsHandler {
     @ExceptionHandler(ProjectNotFoundException.class)
     public ResponseEntity<ErroData> getProjectNotFoundError(ProjectNotFoundException projectNotFoundException){
         log.error("Erro de projeto: {} /id: {}", projectNotFoundException.getMessage(), projectNotFoundException.getProjectID());
-        return getResponseData(projectNotFoundException.getMessage(),null, HttpStatus.NO_CONTENT);
+        return getResponseData(projectNotFoundException.getMessage(),null, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

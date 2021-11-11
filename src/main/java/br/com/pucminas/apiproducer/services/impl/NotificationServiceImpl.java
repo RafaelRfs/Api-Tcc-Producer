@@ -67,6 +67,12 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void deleteNotification(Long id) {
+        Notificacao notificacao = getNotification(id);
+
+        notificacao.setProject(null);
+
+        notificacaoRepository.save(notificacao);
+
         notificacaoRepository.delete(
                 getNotification(id)
         );
