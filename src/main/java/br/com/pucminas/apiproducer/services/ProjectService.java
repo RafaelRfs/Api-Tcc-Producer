@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ProjectService {
     Optional<Projeto> findById(Long id);
     Projeto findEntityById(Long id);
-    List<ProjectRequestDto> findProjectsByUserId(Long id);
+    List<ProjectRequestDto> findProjectsByUser();
     List<String> findEmailsByProject(Long id);
     ProjectRequestDto findProjectById(Long id);
     ProjectRequestDto createProject(ProjectRequestDto projectRequestDto);

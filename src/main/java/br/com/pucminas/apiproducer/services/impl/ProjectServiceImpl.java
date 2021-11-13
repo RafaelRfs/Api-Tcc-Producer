@@ -135,9 +135,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectRequestDto> findProjectsByUserId(Long userId) {
+    public List<ProjectRequestDto> findProjectsByUser() {
         return projectMapper.mapToListDto(
-                this.projectRepository.findByUserId(userId)
+                this.projectRepository.findByUserId(
+                        authService
+                        .getCurrentUser()
+                        .getId()
+                )
         );
     }
 

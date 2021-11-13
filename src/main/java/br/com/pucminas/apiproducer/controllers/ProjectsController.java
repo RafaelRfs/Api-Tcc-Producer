@@ -35,10 +35,10 @@ public class ProjectsController extends AbsController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/by-user/{userId}")
-    public ResponseEntity<Object> findProjectsByUser(@PathVariable Long userId) {
+    @GetMapping("/by-user")
+    public ResponseEntity<Object> findProjectsByUser() {
         return ResponseEntity
-                .ok(projectService.findProjectsByUserId(userId));
+                .ok(projectService.findProjectsByUser());
     }
 
     @PutMapping
