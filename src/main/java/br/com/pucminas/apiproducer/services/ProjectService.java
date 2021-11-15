@@ -13,10 +13,8 @@ public interface ProjectService {
     Optional<Projeto> findById(Long id);
     Projeto findEntityById(Long id);
     List<ProjectRequestDto> findProjectsByUser();
-
     List<ProjectRequestDto> findProjectsByStatus(StatusEnum status);
     List<ProjectRequestDto> findProjectsByStatusEvent(StatusEnum status, EventsEnum events);
-
     List<String> findEmailsByProject(Long id);
     ProjectRequestDto findProjectById(Long id);
     ProjectRequestDto createProject(ProjectRequestDto projectRequestDto);

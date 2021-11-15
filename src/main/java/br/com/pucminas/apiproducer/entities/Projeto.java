@@ -1,5 +1,7 @@
 package br.com.pucminas.apiproducer.entities;
 
+import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,8 +36,10 @@ public class Projeto implements Serializable {
     @Column(name = "data_previsao_entrega")
     private LocalDate dataPrevisaoEntrega;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "status_id", referencedColumnName = "status_id")
-    private Status status;
+    @Column(name = "status")
+    private StatusEnum status;
+
+    @Column(name = "evento")
+    private EventsEnum evento;
 
 }

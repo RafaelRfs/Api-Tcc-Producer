@@ -1,5 +1,7 @@
 package br.com.pucminas.apiproducer.dtos;
 
+import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -29,7 +31,13 @@ public class ProjectRequestDto implements Serializable {
     private String cliente;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private StatusRequestDto status;
+    private StatusEnum status;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private EventsEnum evento;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private StatusRequestDto statusData;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

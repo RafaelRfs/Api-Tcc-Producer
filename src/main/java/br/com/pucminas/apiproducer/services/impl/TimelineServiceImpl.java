@@ -49,6 +49,8 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto, Projeto project) {
+        project.setStatus(timelineRequestDto.getStatus());
+        project.setEvento(timelineRequestDto.getEvento());
         return saveTimeline(timelineRequestDto, project);
     }
 
@@ -56,13 +58,10 @@ public class TimelineServiceImpl implements TimelineService {
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto) {
         Projeto project = projectService.findEntityById(timelineRequestDto.getProjetoId());
         TimelineRequestDto response = saveTimeline(timelineRequestDto, project);
-        project.setStatus(
-                statusService.findFirst(
-                        timelineRequestDto.getStatus(),
-                        timelineRequestDto.getEvento()
-                )
-        );
+        project.setStatus(timelineRequestDto.getStatus());
+        project.setEvento(timelineRequestDto.getEvento());
         projectService.updateProject(project);
+
         emailProducerService.sendEmail(
                 UUID.randomUUID().toString(),
                 ApiConstants.MSG_NEW_TIMELINE,
@@ -75,7 +74,7 @@ public class TimelineServiceImpl implements TimelineService {
     @Override
     public void updateTimeline(TimelineUpdateRequestDto timelineUpdateRequestDto) {
         Projeto project = projectService.findEntityById(timelineUpdateRequestDto.getProjetoId());
-        Timeline timeline =  getTimeline(timelineUpdateRequestDto.getId());
+        Timeline timeline = getTimeline(timelineUpdateRequestDto.getId());
         timeline.setProject(project);
         timeline.setDescricao(timelineUpdateRequestDto.getDescricao());
         timeline.setUrl(timelineUpdateRequestDto.getUrl());
@@ -100,7 +99,7 @@ public class TimelineServiceImpl implements TimelineService {
                 TimelineRequestDto.builder()
                         .dataPostagem(LocalDateTime.now())
                         .descricao(description)
-                        .status(StatusEnum.INICIADO)
+                        .status(StatusEnum.EM_ANDAMENTO)
                         .evento(EventsEnum.INICIADO)
                         .build(), project
         );
@@ -133,12 +132,20 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     @Override
-    public List<TimelineRequestDto> findTimelinesByStatus(StatusEnum status) {
-        return null;
+    public List<TimelineRequestDto> findTimelinesByStatus(Long projectId, StatusEnum status) {
+        return timelineMapper.mapListToDto(
+                timelineRepository.findByProjectIdAndStatus(projectId, status)
+        );
     }
 
     @Override
-    public List<TimelineRequestDto> findTimelinesByStatusEvent(StatusEnum status, EventsEnum evento) {
-        return null;
+    public List<TimelineRequestDto> findTimelinesByStatusEvent(Long projectId,StatusEnum status, EventsEnum evento) {
+        return timelineMapper.mapListToDto(
+                timelineRepository.findByProjectIdAndStatusAndEvento(
+                        projectId,
+                        status,
+                        evento
+                )
+        );
     }
 }

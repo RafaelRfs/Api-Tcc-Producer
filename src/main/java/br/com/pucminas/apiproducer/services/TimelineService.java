@@ -14,8 +14,8 @@ public interface TimelineService {
     TimelineRequestDto findById(Long id);
     List<TimelineRequestDto> findTimelinesByProjectId(Long projectId);
 
-    List<TimelineRequestDto> findTimelinesByStatus(StatusEnum status);
-    List<TimelineRequestDto> findTimelinesByStatusEvent(StatusEnum status, EventsEnum evento);
+    List<TimelineRequestDto> findTimelinesByStatus(Long projectId, StatusEnum status);
+    List<TimelineRequestDto> findTimelinesByStatusEvent(Long projectId, StatusEnum status, EventsEnum evento);
 
     TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto, Projeto project);
     TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto);

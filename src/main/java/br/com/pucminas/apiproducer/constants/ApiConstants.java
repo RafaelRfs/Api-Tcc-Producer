@@ -19,7 +19,6 @@ public class ApiConstants {
     public static final String MSG_ERROR_TIMELINE_NOT_FOUND = "Timeline nao encontrada";
     public static final String MSG_ERROR_EMAIL_NOTIFICATICATION = "Email ja cadastrado para o projeto informado";
     public static final String MSG_ERROR_NOTIFICATION_NOT_FOUND = "Notificação nao encontrada";
-    public static final String MSG_ERROR_STATUS_NOT_FOUND = "Status nao encontrado";
     public static final String MSG_ERROR = "Usuario já cadastrado no banco de dados";
     public static final String MSG_ERROR_USER_NOT_FOUND = "Usuario não encontrado";
     

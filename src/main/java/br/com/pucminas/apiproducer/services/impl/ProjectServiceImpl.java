@@ -5,7 +5,6 @@ import br.com.pucminas.apiproducer.dtos.NotificationRequestDto;
 import br.com.pucminas.apiproducer.dtos.ProjectRequestDto;
 import br.com.pucminas.apiproducer.dtos.ProjectUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Projeto;
-import br.com.pucminas.apiproducer.entities.Status;
 import br.com.pucminas.apiproducer.entities.User;
 import br.com.pucminas.apiproducer.enums.EventsEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
@@ -19,12 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_ERROR_PROJECT_NOT_FOUND;
 import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_PROJECT_STARTED;
 
@@ -34,7 +31,6 @@ import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_PROJECT_STA
 public class ProjectServiceImpl implements ProjectService {
 
     private final AuthService authService;
-    private final StatusService statusService;
     private final ProjectMapper projectMapper;
     private final ProjetoRepository projectRepository;
     private final TimelineService timelineService;
@@ -42,17 +38,15 @@ public class ProjectServiceImpl implements ProjectService {
     private final NotificationService notificationService;
 
     @Override
+    @Transactional
     public ProjectRequestDto createProject(ProjectRequestDto projectRequestDto) {
         User user = authService.getCurrentUser();
-        Status status = statusService.findFirst(
-                StatusEnum.EM_ANDAMENTO,
-                EventsEnum.ANALISANDO_INFORMACOES
-        );
-        Projeto project = projectMapper.map(projectRequestDto, user, status);
+        Projeto project = projectMapper.map(projectRequestDto, user);
         project = projectRepository.save(project);
         addNotification(user, project);
         createTimeline(user, project);
         sendEmail(user, project);
+        project = projectRepository.getById(project.getId());
         return projectMapper.mapToDto(project);
     }
 
@@ -89,11 +83,8 @@ public class ProjectServiceImpl implements ProjectService {
     public void updateProject(ProjectUpdateRequestDto projectUpdateRequestDto) {
         Projeto projeto = findEntityById(projectUpdateRequestDto.getId());
         if(projectUpdateRequestDto.getStatus() != null && projectUpdateRequestDto.getEvento() != null ) {
-            Status status = statusService.findFirst(
-                    projectUpdateRequestDto.getStatus(),
-                    projectUpdateRequestDto.getEvento()
-            );
-            projeto.setStatus(status);
+            projeto.setEvento(projectUpdateRequestDto.getEvento());
+            projeto.setStatus(projectUpdateRequestDto.getStatus());
         }
         projeto.setCliente(projectUpdateRequestDto.getCliente());
         projeto.setDataPrevisaoEntrega(projectUpdateRequestDto.getDataPrevisaoEntrega());
@@ -178,7 +169,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectRequestDto> findProjectsByStatus(StatusEnum status) {
         return projectMapper.mapToListDto(
-                projectRepository.findByUserIdAndStatusStatus(
+                projectRepository.findByUserIdAndStatus(
                         authService.getCurrentUser().getId(),
                         status
                 )
@@ -188,7 +179,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectRequestDto> findProjectsByStatusEvent(StatusEnum status, EventsEnum event) {
         return projectMapper.mapToListDto(
-                projectRepository.findByUserIdAndStatusStatusAndStatusEvento(
+                projectRepository.findByUserIdAndStatusAndEvento(
                         authService.getCurrentUser().getId(),
                         status,
                         event

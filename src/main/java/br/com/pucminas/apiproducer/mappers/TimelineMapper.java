@@ -2,7 +2,6 @@ package br.com.pucminas.apiproducer.mappers;
 
 import br.com.pucminas.apiproducer.dtos.TimelineRequestDto;
 import br.com.pucminas.apiproducer.entities.Projeto;
-import br.com.pucminas.apiproducer.entities.Status;
 import br.com.pucminas.apiproducer.entities.Timeline;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -8,17 +8,18 @@ import java.util.Optional;
 @Getter
 @AllArgsConstructor
 public enum StatusEnum {
-    EM_ANDAMENTO(1, "Em Andamento", "start.jpg","green"),
-    AGUARDANDO_CLIENTE(2, "Aguardando cliente ","waitingClient.png","blue"),
-    FINALIZADO(3, " Finalizado ","finalized.jpg","white"),
-    INICIADO(4, "Iniciada","timeline.jpg","blue");
+    EM_ANDAMENTO(1, "Em Andamento", "Em Andamento", "start.jpg", "green"),
+    AGUARDANDO_CLIENTE(2, "Em Andamento", "Aguardando cliente ", "waitingClient.png", "blue"),
+    FINALIZADO(3, "Em Andamento", " Finalizado ", "finalized.jpg", "white"),
+    INICIADO(4, "Em Andamento", "Iniciada", "timeline.jpg", "blue");
 
     private Integer id;
+    private String nome;
     private String descricao;
     private String icone;
     private String cor;
 
-    public Optional<StatusEnum> fromId(Integer id) {
+    public static Optional<StatusEnum> fromId(Integer id) {
         return Arrays.stream(StatusEnum.values()).filter(
                 status -> status.getId().equals(id)
         ).findFirst();
