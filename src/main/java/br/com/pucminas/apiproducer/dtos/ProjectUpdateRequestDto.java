@@ -1,5 +1,7 @@
 package br.com.pucminas.apiproducer.dtos;
 
+import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -32,4 +34,10 @@ public class ProjectUpdateRequestDto implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull(message = "necessario informar o campo data previsao entrega do projeto")
     private LocalDate dataPrevisaoEntrega;
+
+    @NotNull(message = "necessario informar o status")
+    private StatusEnum status;
+
+    @NotNull(message = "necessario informar o evento")
+    private EventsEnum evento;
 }

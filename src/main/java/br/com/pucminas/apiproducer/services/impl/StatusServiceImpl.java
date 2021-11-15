@@ -3,6 +3,8 @@ package br.com.pucminas.apiproducer.services.impl;
 import br.com.pucminas.apiproducer.dtos.StatusRequestDto;
 import br.com.pucminas.apiproducer.dtos.StatusUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Status;
+import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.StatusEnum;
 import br.com.pucminas.apiproducer.exceptions.StatusErrorException;
 import br.com.pucminas.apiproducer.mappers.StatusMapper;
 import br.com.pucminas.apiproducer.repositories.StatusRepository;
@@ -12,8 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
-import static br.com.pucminas.apiproducer.constants.ApiConstants.MS_ERROR_STATUS_NOT_FOUND;
+import java.util.Optional;
+
+import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_ERROR_STATUS_NOT_FOUND;
 
 @Slf4j
 @Service
@@ -34,10 +39,12 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public void updateStatus(StatusUpdateRequestDto statusUpdateRequestDto) {
-        Status status =  findById(statusUpdateRequestDto.getId());
+        Status status = findById(statusUpdateRequestDto.getId());
         status.setCor(statusUpdateRequestDto.getCor());
         status.setIcone(statusUpdateRequestDto.getIcone());
         status.setNome(statusUpdateRequestDto.getNome());
+        status.setEvento(statusUpdateRequestDto.getEvento());
+        status.setStatus(statusUpdateRequestDto.getStatus());
         statusRepository.save(status);
     }
 
@@ -51,14 +58,52 @@ public class StatusServiceImpl implements StatusService {
     @Override
     public Status findById(Long statusId) {
         return statusRepository.findById(statusId).orElseThrow(
-                ()-> new StatusErrorException(MS_ERROR_STATUS_NOT_FOUND)
+                () -> new StatusErrorException(MSG_ERROR_STATUS_NOT_FOUND)
         );
+    }
+
+    private Status getStatusDefault(StatusEnum statusEnum, EventsEnum eventEnum) {
+        Status status = new Status();
+        status.setStatus(statusEnum);
+        status.setEvento(eventEnum);
+        status.setNome(statusEnum.getDescricao());
+        status.setIcone(statusEnum.getIcone());
+        status.setCor(statusEnum.getCor());
+        return statusRepository.save(status);
+    }
+
+    @Override
+    public Status findFirst(StatusEnum statusEnum, EventsEnum eventEnum) {
+
+        return statusRepository.findFirstByStatusAndEvento(
+                statusEnum,
+                eventEnum
+        )
+                .orElse(getStatusDefault(statusEnum, eventEnum));
+
     }
 
     @Override
     public StatusRequestDto findStatusById(Long id) {
         return statusMapper.mapToDto(
                 this.findById(id)
+        );
+    }
+
+    @Override
+    public List<StatusRequestDto> findStatus(StatusEnum status) {
+        return statusMapper.mapToListDto(
+                this.statusRepository.findByStatus(status)
+        );
+    }
+
+    @Override
+    public List<StatusRequestDto> findStatusEvent(StatusEnum status, EventsEnum event) {
+        return statusMapper.mapToListDto(
+                this.statusRepository.findByStatusAndEvento(
+                        status,
+                        event
+                )
         );
     }
 

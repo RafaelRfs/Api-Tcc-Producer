@@ -3,11 +3,12 @@ package br.com.pucminas.apiproducer.controllers;
 import br.com.pucminas.apiproducer.constants.EndpointsConstants;
 import br.com.pucminas.apiproducer.dtos.StatusRequestDto;
 import br.com.pucminas.apiproducer.dtos.StatusUpdateRequestDto;
+import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.StatusEnum;
 import br.com.pucminas.apiproducer.services.StatusService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -44,6 +45,23 @@ public class StatusController extends AbsController {
     public ResponseEntity<List<StatusRequestDto>> findAllStatuses() {
         return ResponseEntity.ok(
                 statusService.findAllStatuses()
+        );
+    }
+
+    @GetMapping("/by-status/{status}")
+    public ResponseEntity<List<StatusRequestDto>> findStatusByStatus(@PathVariable StatusEnum status) {
+        return ResponseEntity.ok(
+                statusService.findStatus(status)
+        );
+    }
+
+    @GetMapping("/by-status/{status}/{event}")
+    public ResponseEntity<List<StatusRequestDto>> findStatusByStatusEvent(@PathVariable StatusEnum status, @PathVariable EventsEnum event) {
+        return ResponseEntity.ok(
+                statusService.findStatusEvent(
+                        status,
+                        event
+                )
         );
     }
 

@@ -26,7 +26,7 @@ public class Timeline implements Serializable {
     @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
     private Projeto project;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "status_id", referencedColumnName = "status_id")
     private Status status;
 

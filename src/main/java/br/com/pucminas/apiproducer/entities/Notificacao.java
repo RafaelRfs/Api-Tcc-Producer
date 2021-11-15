@@ -4,11 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -26,7 +22,6 @@ public class Notificacao implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Projeto project;
 
     @Column(name = "nome")

@@ -83,7 +83,7 @@ public class TimelineServiceImpl implements TimelineService {
     public void deleteTimeline(Long id) {
 
         Timeline timeline = getTimeline(id);
-
+        timeline.setStatus(null);
         timeline.setProject(null);
 
         timelineRepository.save(timeline);
