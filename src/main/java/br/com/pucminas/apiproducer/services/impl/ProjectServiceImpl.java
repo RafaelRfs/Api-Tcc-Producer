@@ -88,14 +88,22 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void updateProject(ProjectUpdateRequestDto projectUpdateRequestDto) {
         Projeto projeto = findEntityById(projectUpdateRequestDto.getId());
-        Status status = statusService.findFirst(
-                projectUpdateRequestDto.getStatus(),
-                projectUpdateRequestDto.getEvento()
-        );
+        if(projectUpdateRequestDto.getStatus() != null && projectUpdateRequestDto.getEvento() != null ) {
+            Status status = statusService.findFirst(
+                    projectUpdateRequestDto.getStatus(),
+                    projectUpdateRequestDto.getEvento()
+            );
+            projeto.setStatus(status);
+        }
         projeto.setCliente(projectUpdateRequestDto.getCliente());
         projeto.setDataPrevisaoEntrega(projectUpdateRequestDto.getDataPrevisaoEntrega());
         projeto.setNome(projectUpdateRequestDto.getNome());
-        projeto.setStatus(status);
+
+        projectRepository.save(projeto);
+    }
+
+    @Override
+    public void updateProject(Projeto projeto) {
         projectRepository.save(projeto);
     }
 

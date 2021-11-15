@@ -4,8 +4,9 @@ import br.com.pucminas.apiproducer.constants.ApiConstants;
 import br.com.pucminas.apiproducer.dtos.TimelineRequestDto;
 import br.com.pucminas.apiproducer.dtos.TimelineUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Projeto;
-import br.com.pucminas.apiproducer.entities.Status;
 import br.com.pucminas.apiproducer.entities.Timeline;
+import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.StatusEnum;
 import br.com.pucminas.apiproducer.exceptions.TimelineErrorException;
 import br.com.pucminas.apiproducer.mappers.TimelineMapper;
 import br.com.pucminas.apiproducer.producers.EmailProducerService;
@@ -48,14 +49,20 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto, Projeto project) {
-        return saveTimeline(timelineRequestDto, project, null);
+        return saveTimeline(timelineRequestDto, project);
     }
 
     @Override
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto) {
         Projeto project = projectService.findEntityById(timelineRequestDto.getProjetoId());
-        Status status = statusService.findById(timelineRequestDto.getStatusId());
-        TimelineRequestDto response = saveTimeline(timelineRequestDto, project, status);
+        TimelineRequestDto response = saveTimeline(timelineRequestDto, project);
+        project.setStatus(
+                statusService.findFirst(
+                        timelineRequestDto.getStatus(),
+                        timelineRequestDto.getEvento()
+                )
+        );
+        projectService.updateProject(project);
         emailProducerService.sendEmail(
                 UUID.randomUUID().toString(),
                 ApiConstants.MSG_NEW_TIMELINE,
@@ -68,26 +75,20 @@ public class TimelineServiceImpl implements TimelineService {
     @Override
     public void updateTimeline(TimelineUpdateRequestDto timelineUpdateRequestDto) {
         Projeto project = projectService.findEntityById(timelineUpdateRequestDto.getProjetoId());
-        Status status = statusService.findById(timelineUpdateRequestDto.getStatusId());
         Timeline timeline =  getTimeline(timelineUpdateRequestDto.getId());
-
         timeline.setProject(project);
-        timeline.setStatus(status);
         timeline.setDescricao(timelineUpdateRequestDto.getDescricao());
         timeline.setUrl(timelineUpdateRequestDto.getUrl());
-
+        timeline.setStatus(timelineUpdateRequestDto.getStatus());
+        timeline.setEvento(timelineUpdateRequestDto.getEvento());
         timelineRepository.save(timeline);
     }
 
     @Override
     public void deleteTimeline(Long id) {
-
         Timeline timeline = getTimeline(id);
-        timeline.setStatus(null);
         timeline.setProject(null);
-
         timelineRepository.save(timeline);
-
         timelineRepository.delete(
                 timeline
         );
@@ -99,12 +100,14 @@ public class TimelineServiceImpl implements TimelineService {
                 TimelineRequestDto.builder()
                         .dataPostagem(LocalDateTime.now())
                         .descricao(description)
+                        .status(StatusEnum.INICIADO)
+                        .evento(EventsEnum.INICIADO)
                         .build(), project
         );
     }
 
-    private TimelineRequestDto saveTimeline(TimelineRequestDto timelineRequestDto, Projeto project, Status status) {
-        Timeline timeline = timelineMapper.map(timelineRequestDto, project, status);
+    private TimelineRequestDto saveTimeline(TimelineRequestDto timelineRequestDto, Projeto project) {
+        Timeline timeline = timelineMapper.map(timelineRequestDto, project);
         return timelineMapper.mapToDto(
                 timelineRepository.save(timeline)
         );
@@ -127,5 +130,15 @@ public class TimelineServiceImpl implements TimelineService {
         return timelineMapper.mapListToDto(
                 timelineRepository.findByProjectId(projectId)
         );
+    }
+
+    @Override
+    public List<TimelineRequestDto> findTimelinesByStatus(StatusEnum status) {
+        return null;
+    }
+
+    @Override
+    public List<TimelineRequestDto> findTimelinesByStatusEvent(StatusEnum status, EventsEnum evento) {
+        return null;
     }
 }

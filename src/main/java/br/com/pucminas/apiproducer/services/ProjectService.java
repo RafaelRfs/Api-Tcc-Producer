@@ -21,5 +21,6 @@ public interface ProjectService {
     ProjectRequestDto findProjectById(Long id);
     ProjectRequestDto createProject(ProjectRequestDto projectRequestDto);
     void updateProject(ProjectUpdateRequestDto projectUpdateRequestDto);
+    void updateProject(Projeto projeto);
     void deleteById(Long id);
 }

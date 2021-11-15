@@ -1,5 +1,7 @@
 package br.com.pucminas.apiproducer.dtos;
 
+import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -23,12 +25,6 @@ public class TimelineRequestDto {
     @NotNull(message = "o campo projeto_id nao pode ser nulo ou vazio")
     private Long projetoId;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @NotNull(message = "o campo status_id nao pode ser nulo ou vazio")
-    private Long statusId;
-
-    private StatusRequestDto status;
-
     @NotBlank(message = "o campo descricao nao pode ser nulo ou vazio")
     private String descricao;
     private String url;
@@ -36,4 +32,11 @@ public class TimelineRequestDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataPostagem;
+
+    @NotNull(message = " o campo status nao deve ser nulo ou vazio ")
+    private StatusEnum status;
+
+    @NotNull(message = "o campo evento nao deve ser nulo ou vazio ")
+    private EventsEnum evento;
+
 }

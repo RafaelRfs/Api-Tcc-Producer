@@ -21,7 +21,7 @@ public class Projeto implements Serializable {
     @Column(name = "projeto_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
     private User user;
 
@@ -34,7 +34,7 @@ public class Projeto implements Serializable {
     @Column(name = "data_previsao_entrega")
     private LocalDate dataPrevisaoEntrega;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "status_id", referencedColumnName = "status_id")
     private Status status;
 

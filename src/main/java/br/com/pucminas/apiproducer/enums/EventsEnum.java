@@ -17,7 +17,9 @@ public enum EventsEnum {
     AGUARDANDO_APROVACAO(5, "Aguardando aprovação"),
     AGUARDANDO_INFORMACOES(6, "Aguardando informações"),
 
-    PROJETO_CONCLUIDO(7, "Projeto concluido");
+    PROJETO_CONCLUIDO(7, "Projeto concluido"),
+
+    INICIADO(8,"Timeline iniciada ");
 
     private Integer id;
     private String nome;

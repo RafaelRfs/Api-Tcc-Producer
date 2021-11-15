@@ -35,9 +35,6 @@ public class ProjectUpdateRequestDto implements Serializable {
     @NotNull(message = "necessario informar o campo data previsao entrega do projeto")
     private LocalDate dataPrevisaoEntrega;
 
-    @NotNull(message = "necessario informar o status")
     private StatusEnum status;
-
-    @NotNull(message = "necessario informar o evento")
     private EventsEnum evento;
 }

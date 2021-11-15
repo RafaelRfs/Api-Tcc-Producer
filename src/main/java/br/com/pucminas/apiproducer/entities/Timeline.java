@@ -1,5 +1,7 @@
 package br.com.pucminas.apiproducer.entities;
 
+import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,13 +24,9 @@ public class Timeline implements Serializable {
     private Long id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
     private Projeto project;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "status_id", referencedColumnName = "status_id")
-    private Status status;
 
     @Column(name = "descricao")
     private String descricao;
@@ -38,4 +36,10 @@ public class Timeline implements Serializable {
 
     @Column(name = "data_postagem")
     private LocalDateTime dataPostagem;
+
+    @Column(name = "status")
+    private StatusEnum status;
+
+    @Column(name = "evento")
+    private EventsEnum evento;
 }

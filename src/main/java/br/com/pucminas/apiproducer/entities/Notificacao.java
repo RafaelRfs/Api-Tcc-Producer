@@ -20,7 +20,7 @@ public class Notificacao implements Serializable {
     @Column(name = "notificacao_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
     private Projeto project;
 
