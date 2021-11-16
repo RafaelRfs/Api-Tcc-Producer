@@ -3,6 +3,8 @@ package br.com.pucminas.apiproducer.controllers;
 import br.com.pucminas.apiproducer.constants.EndpointsConstants;
 import br.com.pucminas.apiproducer.dtos.TimelineRequestDto;
 import br.com.pucminas.apiproducer.dtos.TimelineUpdateRequestDto;
+import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.StatusEnum;
 import br.com.pucminas.apiproducer.services.TimelineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +53,27 @@ public class TimelineController extends AbsController {
     public ResponseEntity<List<TimelineRequestDto>> findTimelinesByProject(@PathVariable Long projectId) {
         return ResponseEntity.ok(
                 timelineService.findTimelinesByProjectId(projectId)
+        );
+    }
+
+    @GetMapping("/by-project-status/{projectId}/{status}")
+    public ResponseEntity<List<TimelineRequestDto>> findTimelinesByStatus(
+            @PathVariable Long projectId,
+            @PathVariable StatusEnum status
+    ) {
+        return ResponseEntity.ok(
+                timelineService.findTimelinesByStatus(projectId, status)
+        );
+    }
+
+    @GetMapping("/by-project-status-event/{projectId}/{status}/{event}")
+    public ResponseEntity<List<TimelineRequestDto>> findTimelinesByProject(
+            @PathVariable Long projectId,
+            @PathVariable StatusEnum status,
+            @PathVariable EventsEnum event
+            ) {
+        return ResponseEntity.ok(
+                timelineService.findTimelinesByStatusEvent(projectId,status,event)
         );
     }
 

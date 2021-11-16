@@ -8,10 +8,16 @@ import java.util.Optional;
 @Getter
 @AllArgsConstructor
 public enum StatusEnum {
-    EM_ANDAMENTO(1, "Em Andamento", "Em Andamento", "start.jpg", "green"),
-    AGUARDANDO_CLIENTE(2, "Em Andamento", "Aguardando cliente ", "waitingClient.png", "blue"),
-    FINALIZADO(3, "Em Andamento", " Finalizado ", "finalized.jpg", "white"),
-    INICIADO(4, "Em Andamento", "Iniciada", "timeline.jpg", "blue");
+    AGUARDANDO_PAGAMENTO(1,"Aguardando pagamento","Aguardando pagamento", "clock","project-status-yellow"),
+    INICIADO(2, "Iniciado", "Iniciado", "play-circle", "project-status-gray"),
+    PAGAMENTO_EFETUADO(3, "Pagamento Efetuado", "Pagamento Efetuado", "check-circle", "project-status-green"),
+    EM_ANDAMENTO(4, "Em Andamento", "Em Andamento", "tasks", "project-status-gray"),
+    AGUARDANDO_INFORMACOES(5, "Aguardando informações", "Aguardando informações", "clock", "project-status-yellow"),
+    ANALISANDO_INFORMACOES(6, "Analisando informações", "Analisando informações", "search", "project-status-gray"),
+    AGUARDANDO_APROVACAO(7, "Aguardando aprovação", "Aguardando aprovação ", "clock", "project-status-yellow"),
+    APROVADO(8, "Aprovado", " Aprovado ", "check-circle", "project-status-green"),
+    CONCLUIDO(9, "Concluido", "Concluido", "thumbtack", "project-status-blue");
+
 
     private Integer id;
     private String nome;

@@ -99,8 +99,8 @@ public class TimelineServiceImpl implements TimelineService {
                 TimelineRequestDto.builder()
                         .dataPostagem(LocalDateTime.now())
                         .descricao(description)
-                        .status(StatusEnum.EM_ANDAMENTO)
-                        .evento(EventsEnum.INICIADO)
+                        .status(StatusEnum.AGUARDANDO_PAGAMENTO)
+                        .evento(EventsEnum.ANALISANDO_INFORMACOES)
                         .build(), project
         );
     }
