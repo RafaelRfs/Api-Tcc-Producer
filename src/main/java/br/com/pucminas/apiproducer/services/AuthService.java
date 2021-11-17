@@ -12,5 +12,6 @@ public interface AuthService {
     UserResponseDto login(LoginRequestDto loginRequestDto);
     UserResponseDto updateUserData(UserUpdateRequestDto userUpdateRequestDto);
     User getCurrentUser();
+    UserResponseDto getUserData();
     UserResponseDto refreshToken();
 }

@@ -12,6 +12,7 @@ import br.com.pucminas.apiproducer.services.AuthService;
 import br.com.pucminas.apiproducer.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 
@@ -31,6 +33,7 @@ public class AuthServiceImpl implements AuthService {
     private final UsuarioService usuarioService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final ModelMapper modelMapper;
     private final JwtProvider jwtProvider;
 
     @Override
@@ -135,6 +138,14 @@ public class AuthServiceImpl implements AuthService {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         return usuarioService.findUserByEmail(principal.getUsername());
+    }
+
+    @Override
+    public UserResponseDto getUserData() {
+        return modelMapper.map(
+                getCurrentUser(),
+                UserResponseDto.class
+        );
     }
 
     @Override

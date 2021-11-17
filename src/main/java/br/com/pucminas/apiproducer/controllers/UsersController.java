@@ -25,4 +25,11 @@ public class UsersController {
         );
     }
 
+    @GetMapping
+    public ResponseEntity<UserResponseDto> getDataUser(){
+        return ResponseEntity.ok(
+                authService.getUserData()
+        );
+    }
+
 }

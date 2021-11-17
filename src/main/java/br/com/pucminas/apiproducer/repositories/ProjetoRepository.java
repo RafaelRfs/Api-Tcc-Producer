@@ -15,7 +15,7 @@ public interface ProjetoRepository extends JpaRepository<Projeto,Long> {
 
     List<Projeto> findByUserId(Long userId);
 
-    List<Projeto> findByUserIdAndStatus(Long userId, StatusEnum status);
+    List<Projeto> findByUserIdAndStatusIn(Long userId, List<StatusEnum> status);
 
     List<Projeto> findByUserIdAndStatusAndEvento(Long userId, StatusEnum status, EventsEnum evento);
 }

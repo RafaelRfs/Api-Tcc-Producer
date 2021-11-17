@@ -19,6 +19,10 @@ public class UserResponseDto {
     private Long usuarioId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String nome;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String email;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String token;
 

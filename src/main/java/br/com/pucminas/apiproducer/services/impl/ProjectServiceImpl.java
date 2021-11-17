@@ -7,6 +7,7 @@ import br.com.pucminas.apiproducer.dtos.ProjectUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Projeto;
 import br.com.pucminas.apiproducer.entities.User;
 import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.RequestStatusEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
 import br.com.pucminas.apiproducer.exceptions.ProjectNotFoundException;
 import br.com.pucminas.apiproducer.mappers.ProjectMapper;
@@ -167,11 +168,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectRequestDto> findProjectsByStatus(StatusEnum status) {
+    public List<ProjectRequestDto> findProjectsByStatus(RequestStatusEnum status) {
         return projectMapper.mapToListDto(
-                projectRepository.findByUserIdAndStatus(
+                projectRepository.findByUserIdAndStatusIn(
                         authService.getCurrentUser().getId(),
-                        status
+                        status.getStatus()
                 )
         );
     }

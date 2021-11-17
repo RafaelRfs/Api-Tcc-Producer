@@ -4,6 +4,7 @@ import br.com.pucminas.apiproducer.constants.EndpointsConstants;
 import br.com.pucminas.apiproducer.dtos.ProjectRequestDto;
 import br.com.pucminas.apiproducer.dtos.ProjectUpdateRequestDto;
 import br.com.pucminas.apiproducer.enums.EventsEnum;
+import br.com.pucminas.apiproducer.enums.RequestStatusEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
 import br.com.pucminas.apiproducer.services.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ public class ProjectsController extends AbsController {
     }
 
     @GetMapping("/by-status/{status}")
-    public ResponseEntity<Object> findProjectsByStatus(@PathVariable StatusEnum status) {
+    public ResponseEntity<Object> findProjectsByStatus(@PathVariable RequestStatusEnum status) {
         return ResponseEntity
                 .ok(projectService.findProjectsByStatus(status));
     }
