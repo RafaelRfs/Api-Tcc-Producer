@@ -16,6 +16,9 @@ import lombok.NoArgsConstructor;
 public class UserResponseDto {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Long id;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long usuarioId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String nome;
