@@ -40,4 +40,8 @@ public class TimelineUpdateRequestDto {
     @NotNull(message = "o campo evento nao deve ser nulo ou vazio ")
     private EventsEnum evento;
 
+    private String legenda;
+
+    private Boolean alerta;
+
 }

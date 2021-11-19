@@ -17,6 +17,7 @@ public interface TimelineMapper {
     @Mapping(target = "dataPostagem", source = "timelineRequestDto.dataPostagem")
     @Mapping(target = "status", source = "timelineRequestDto.status")
     @Mapping(target = "evento", source = "timelineRequestDto.evento")
+    @Mapping(target = "legenda", source = "timelineRequestDto.legenda")
     Timeline map(TimelineRequestDto timelineRequestDto, Projeto project);
 
     @Mapping(target = "id", source = "id")
@@ -26,6 +27,7 @@ public interface TimelineMapper {
     @Mapping(target = "dataPostagem", source = "timeline.dataPostagem")
     @Mapping(target = "status", source = "timeline.status")
     @Mapping(target = "evento", source = "timeline.evento")
+    @Mapping(target = "legenda", source = "timeline.legenda")
     TimelineRequestDto mapToDto(Timeline timeline);
 
     List<TimelineRequestDto> mapListToDto(List<Timeline> timelines);

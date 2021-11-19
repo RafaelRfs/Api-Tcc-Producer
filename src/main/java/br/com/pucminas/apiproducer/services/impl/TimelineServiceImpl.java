@@ -62,12 +62,14 @@ public class TimelineServiceImpl implements TimelineService {
         project.setEvento(timelineRequestDto.getEvento());
         projectService.updateProject(project);
 
-        emailProducerService.sendEmail(
-                UUID.randomUUID().toString(),
-                ApiConstants.MSG_NEW_TIMELINE,
-                String.format(ApiConstants.MSG_NEW_TIMELINE_CREATED, timelineRequestDto.getDescricao(), project.getNome()),
-                projectService.findEmailsByProject(project.getId())
-        );
+        if(timelineRequestDto.getAlerta()) {
+            emailProducerService.sendEmail(
+                    UUID.randomUUID().toString(),
+                    ApiConstants.MSG_NEW_TIMELINE,
+                    String.format(ApiConstants.MSG_NEW_TIMELINE_CREATED, timelineRequestDto.getDescricao(), project.getNome()),
+                    projectService.findEmailsByProject(project.getId())
+            );
+        }
         return response;
     }
 
@@ -80,6 +82,7 @@ public class TimelineServiceImpl implements TimelineService {
         timeline.setUrl(timelineUpdateRequestDto.getUrl());
         timeline.setStatus(timelineUpdateRequestDto.getStatus());
         timeline.setEvento(timelineUpdateRequestDto.getEvento());
+        timeline.setLegenda(timelineUpdateRequestDto.getLegenda());
         timelineRepository.save(timeline);
     }
 

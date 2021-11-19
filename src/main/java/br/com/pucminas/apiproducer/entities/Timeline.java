@@ -42,4 +42,7 @@ public class Timeline implements Serializable {
 
     @Column(name = "evento")
     private EventsEnum evento;
+
+    @Column(name = "legenda")
+    private String legenda;
 }
