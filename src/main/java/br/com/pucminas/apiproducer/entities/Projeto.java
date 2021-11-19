@@ -1,6 +1,5 @@
 package br.com.pucminas.apiproducer.entities;
 
-import br.com.pucminas.apiproducer.enums.EventsEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,8 +37,5 @@ public class Projeto implements Serializable {
 
     @Column(name = "status")
     private StatusEnum status;
-
-    @Column(name = "evento")
-    private EventsEnum evento;
 
 }

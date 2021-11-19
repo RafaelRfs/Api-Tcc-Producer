@@ -5,7 +5,6 @@ import br.com.pucminas.apiproducer.dtos.TimelineRequestDto;
 import br.com.pucminas.apiproducer.dtos.TimelineUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Projeto;
 import br.com.pucminas.apiproducer.entities.Timeline;
-import br.com.pucminas.apiproducer.enums.EventsEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
 import br.com.pucminas.apiproducer.exceptions.TimelineErrorException;
 import br.com.pucminas.apiproducer.mappers.TimelineMapper;
@@ -50,16 +49,18 @@ public class TimelineServiceImpl implements TimelineService {
     @Override
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto, Projeto project) {
         project.setStatus(timelineRequestDto.getStatus());
-        project.setEvento(timelineRequestDto.getEvento());
         return saveTimeline(timelineRequestDto, project);
     }
 
     @Override
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto) {
+
+
+
+
         Projeto project = projectService.findEntityById(timelineRequestDto.getProjetoId());
         TimelineRequestDto response = saveTimeline(timelineRequestDto, project);
         project.setStatus(timelineRequestDto.getStatus());
-        project.setEvento(timelineRequestDto.getEvento());
         projectService.updateProject(project);
 
         if(timelineRequestDto.getAlerta()) {
@@ -81,7 +82,6 @@ public class TimelineServiceImpl implements TimelineService {
         timeline.setDescricao(timelineUpdateRequestDto.getDescricao());
         timeline.setUrl(timelineUpdateRequestDto.getUrl());
         timeline.setStatus(timelineUpdateRequestDto.getStatus());
-        timeline.setEvento(timelineUpdateRequestDto.getEvento());
         timeline.setLegenda(timelineUpdateRequestDto.getLegenda());
         timelineRepository.save(timeline);
     }
@@ -103,7 +103,6 @@ public class TimelineServiceImpl implements TimelineService {
                         .dataPostagem(LocalDateTime.now())
                         .descricao(description)
                         .status(StatusEnum.AGUARDANDO_PAGAMENTO)
-                        .evento(EventsEnum.ANALISANDO_INFORMACOES)
                         .build(), project
         );
     }
@@ -141,14 +140,5 @@ public class TimelineServiceImpl implements TimelineService {
         );
     }
 
-    @Override
-    public List<TimelineRequestDto> findTimelinesByStatusEvent(Long projectId,StatusEnum status, EventsEnum evento) {
-        return timelineMapper.mapListToDto(
-                timelineRepository.findByProjectIdAndStatusAndEvento(
-                        projectId,
-                        status,
-                        evento
-                )
-        );
-    }
+
 }

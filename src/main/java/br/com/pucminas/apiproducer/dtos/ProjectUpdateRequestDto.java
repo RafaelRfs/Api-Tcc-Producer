@@ -1,6 +1,6 @@
 package br.com.pucminas.apiproducer.dtos;
 
-import br.com.pucminas.apiproducer.enums.EventsEnum;
+
 import br.com.pucminas.apiproducer.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -35,5 +35,4 @@ public class ProjectUpdateRequestDto implements Serializable {
     private LocalDate dataPrevisaoEntrega;
 
     private StatusEnum status;
-    private EventsEnum evento;
 }

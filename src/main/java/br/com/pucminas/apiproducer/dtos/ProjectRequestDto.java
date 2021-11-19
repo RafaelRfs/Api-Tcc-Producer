@@ -1,6 +1,5 @@
 package br.com.pucminas.apiproducer.dtos;
 
-import br.com.pucminas.apiproducer.enums.EventsEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -32,9 +31,6 @@ public class ProjectRequestDto implements Serializable {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StatusEnum status;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private EventsEnum evento;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StatusRequestDto statusData;

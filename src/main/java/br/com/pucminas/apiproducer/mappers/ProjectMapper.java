@@ -16,7 +16,6 @@ public interface ProjectMapper {
     @Mapping(target = "user", source = "user")
     @Mapping(target = "dataPrevisaoEntrega", source = "projectRequestDto.dataPrevisaoEntrega")
     @Mapping(target = "status", source = "projectRequestDto.status")
-    @Mapping(target = "evento", source = "projectRequestDto.evento")
     Projeto map(ProjectRequestDto projectRequestDto, User user);
 
     @Mapping(target = "id", expression = "java(project.getId())")
@@ -25,7 +24,6 @@ public interface ProjectMapper {
     @Mapping(target = "usuarioId", expression = "java(project.getUser().getId())")
     @Mapping(target = "dataPrevisaoEntrega",source = "project.dataPrevisaoEntrega")
     @Mapping(target = "status", source = "status")
-    @Mapping(target = "evento", source = "evento")
     @Mapping(target = "statusData.id", expression ="java(projeto.getStatus()!= null ? projeto.getStatus().getId() : null)")
     @Mapping(target = "statusData.nome", expression ="java(projeto.getStatus()!= null ? projeto.getStatus().getNome() : null )")
     @Mapping(target = "statusData.icone", expression ="java(projeto.getStatus()!= null ? projeto.getStatus().getIcone() : null)")

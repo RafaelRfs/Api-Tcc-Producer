@@ -1,6 +1,5 @@
 package br.com.pucminas.apiproducer.entities;
 
-import br.com.pucminas.apiproducer.enums.EventsEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,9 +38,6 @@ public class Timeline implements Serializable {
 
     @Column(name = "status")
     private StatusEnum status;
-
-    @Column(name = "evento")
-    private EventsEnum evento;
 
     @Column(name = "legenda")
     private String legenda;

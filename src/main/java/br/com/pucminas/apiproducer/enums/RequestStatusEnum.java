@@ -2,7 +2,6 @@ package br.com.pucminas.apiproducer.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.List;
 

@@ -6,9 +6,7 @@ import br.com.pucminas.apiproducer.dtos.ProjectRequestDto;
 import br.com.pucminas.apiproducer.dtos.ProjectUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Projeto;
 import br.com.pucminas.apiproducer.entities.User;
-import br.com.pucminas.apiproducer.enums.EventsEnum;
 import br.com.pucminas.apiproducer.enums.RequestStatusEnum;
-import br.com.pucminas.apiproducer.enums.StatusEnum;
 import br.com.pucminas.apiproducer.exceptions.ProjectNotFoundException;
 import br.com.pucminas.apiproducer.mappers.ProjectMapper;
 import br.com.pucminas.apiproducer.producers.EmailProducerService;
@@ -83,8 +81,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void updateProject(ProjectUpdateRequestDto projectUpdateRequestDto) {
         Projeto projeto = findEntityById(projectUpdateRequestDto.getId());
-        if(projectUpdateRequestDto.getStatus() != null && projectUpdateRequestDto.getEvento() != null ) {
-            projeto.setEvento(projectUpdateRequestDto.getEvento());
+        if(projectUpdateRequestDto.getStatus() != null) {
             projeto.setStatus(projectUpdateRequestDto.getStatus());
         }
         projeto.setCliente(projectUpdateRequestDto.getCliente());
@@ -173,17 +170,6 @@ public class ProjectServiceImpl implements ProjectService {
                 projectRepository.findByUserIdAndStatusIn(
                         authService.getCurrentUser().getId(),
                         status.getStatus()
-                )
-        );
-    }
-
-    @Override
-    public List<ProjectRequestDto> findProjectsByStatusEvent(StatusEnum status, EventsEnum event) {
-        return projectMapper.mapToListDto(
-                projectRepository.findByUserIdAndStatusAndEvento(
-                        authService.getCurrentUser().getId(),
-                        status,
-                        event
                 )
         );
     }
