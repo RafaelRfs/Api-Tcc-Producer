@@ -12,6 +12,7 @@ public interface StatusMapper {
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nome", source = "nome")
+    @Mapping(target = "descricao", source = "descricao")
     @Mapping(target = "cor", source = "cor")
     @Mapping(target = "icone", source = "icone")
     StatusRequestDto mapToDto(StatusEnum status);
