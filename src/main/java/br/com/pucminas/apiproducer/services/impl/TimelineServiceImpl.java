@@ -105,7 +105,7 @@ public class TimelineServiceImpl implements TimelineService {
                 TimelineRequestDto.builder()
                         .dataPostagem(LocalDateTime.now())
                         .descricao(description)
-                        .statusId(StatusEnum.AGUARDANDO_PAGAMENTO)
+                        .statusId(StatusEnum.INICIADO)
                         .build(), project
         );
     }

@@ -17,8 +17,8 @@ import static br.com.pucminas.apiproducer.utils.Helpers.validateStringEquals;
 @Getter
 @AllArgsConstructor
 public enum StatusEnum {
-    AGUARDANDO_PAGAMENTO(1, "Aguardando pagamento", "Aguardando pagamento", "clock", "project-status-yellow"),
-    INICIADO(2, "Iniciado", "Iniciado", "play-circle", "project-status-gray"),
+    INICIADO(1, "Iniciado", "Iniciado", "play-circle", "project-status-gray"),
+    AGUARDANDO_PAGAMENTO(2, "Aguardando pagamento", "Aguardando pagamento", "clock", "project-status-yellow"),
     PAGAMENTO_EFETUADO(3, "Pagamento Efetuado", "Pagamento Efetuado", "check-circle", "project-status-green"),
     EM_ANDAMENTO(4, "Em Andamento", "Em Andamento", "tasks", "project-status-gray"),
     AGUARDANDO_INFORMACOES(5, "Aguardando informações", "Aguardando informações", "clock", "project-status-yellow"),

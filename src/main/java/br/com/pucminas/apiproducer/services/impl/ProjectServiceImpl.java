@@ -54,6 +54,7 @@ public class ProjectServiceImpl implements ProjectService {
                 NotificationRequestDto.builder()
                         .uuid(UUID.randomUUID().toString())
                         .email(user.getEmail())
+                        .nome(user.getNome())
                         .projetoId(project.getId())
                         .build()
         );
