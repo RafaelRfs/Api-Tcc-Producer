@@ -28,7 +28,7 @@ public class AppConfig {
         executor.setCorePoolSize(2);
         executor.setMaxPoolSize(2);
         executor.setQueueCapacity(100);
-        executor.setThreadNamePrefix("apiGradlePosts-");
+        executor.setThreadNamePrefix("api-tcc-producer-");
         executor.initialize();
         return executor;
     }
