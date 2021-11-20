@@ -48,19 +48,15 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto, Projeto project) {
-        project.setStatus(timelineRequestDto.getStatus());
+        project.setStatus(timelineRequestDto.getStatusId());
         return saveTimeline(timelineRequestDto, project);
     }
 
     @Override
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto) {
-
-
-
-
         Projeto project = projectService.findEntityById(timelineRequestDto.getProjetoId());
         TimelineRequestDto response = saveTimeline(timelineRequestDto, project);
-        project.setStatus(timelineRequestDto.getStatus());
+        project.setStatus(timelineRequestDto.getStatusId());
         projectService.updateProject(project);
 
         if(timelineRequestDto.getAlerta()) {
@@ -102,7 +98,7 @@ public class TimelineServiceImpl implements TimelineService {
                 TimelineRequestDto.builder()
                         .dataPostagem(LocalDateTime.now())
                         .descricao(description)
-                        .status(StatusEnum.AGUARDANDO_PAGAMENTO)
+                        .statusId(StatusEnum.AGUARDANDO_PAGAMENTO)
                         .build(), project
         );
     }

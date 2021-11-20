@@ -32,11 +32,14 @@ public class TimelineRequestDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataPostagem;
 
-
-    private StatusEnum status;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private StatusEnum statusId;
     private String legenda;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean alerta = false;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private StatusRequestDto status;
 
 }

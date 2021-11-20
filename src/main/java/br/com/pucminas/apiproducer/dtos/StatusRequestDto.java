@@ -19,6 +19,8 @@ public class StatusRequestDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String nome;
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String descricao;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cor;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String icone;
