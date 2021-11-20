@@ -54,6 +54,7 @@ public class TimelineServiceImpl implements TimelineService {
 
     @Override
     public TimelineRequestDto createTimeline(TimelineRequestDto timelineRequestDto) {
+        validateDateCreated(timelineRequestDto);
         Projeto project = projectService.findEntityById(timelineRequestDto.getProjetoId());
         TimelineRequestDto response = saveTimeline(timelineRequestDto, project);
         project.setStatus(timelineRequestDto.getStatusId());
@@ -68,6 +69,12 @@ public class TimelineServiceImpl implements TimelineService {
             );
         }
         return response;
+    }
+
+    private void validateDateCreated(TimelineRequestDto timelineRequestDto) {
+        if(timelineRequestDto.getDataPostagem() == null) {
+            timelineRequestDto.setDataPostagem(LocalDateTime.now());
+        }
     }
 
     @Override
