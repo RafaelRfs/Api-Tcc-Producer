@@ -1,15 +1,13 @@
 package br.com.pucminas.apiproducer.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
-@Builder
 @Entity
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_notificacao")

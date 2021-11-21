@@ -60,7 +60,7 @@ public class TimelineServiceImpl implements TimelineService {
         project.setStatus(timelineRequestDto.getStatusId());
         projectService.updateProject(project);
 
-        if(timelineRequestDto.getAlerta()) {
+        if(timelineRequestDto.getAlertar()) {
             emailProducerService.sendEmail(
                     UUID.randomUUID().toString(),
                     ApiConstants.MSG_NEW_TIMELINE,

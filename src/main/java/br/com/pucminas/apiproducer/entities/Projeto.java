@@ -1,16 +1,15 @@
 package br.com.pucminas.apiproducer.entities;
 
 import br.com.pucminas.apiproducer.enums.StatusEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @AllArgsConstructor

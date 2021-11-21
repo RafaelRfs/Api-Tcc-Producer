@@ -37,7 +37,7 @@ public class TimelineRequestDto {
     private String legenda;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean alerta = false;
+    private Boolean alertar = false;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StatusRequestDto status;

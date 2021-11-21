@@ -1,18 +1,17 @@
 package br.com.pucminas.apiproducer.entities;
 
 import br.com.pucminas.apiproducer.enums.StatusEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Data
-@Builder
 @Entity
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_timeline")
