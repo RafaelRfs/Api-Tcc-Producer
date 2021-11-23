@@ -29,8 +29,8 @@ public class Projeto implements Serializable {
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "cliente")
-    private String cliente;
+    @Column(name = "data_inicio_projeto")
+    private LocalDate dataInicioProjeto;
 
     @Column(name = "data_previsao_entrega")
     private LocalDate dataPrevisaoEntrega;

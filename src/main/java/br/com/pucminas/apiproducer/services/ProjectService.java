@@ -16,6 +16,7 @@ public interface ProjectService {
     Projeto findEntityById(Long id);
     List<ProjectRequestDto> findProjectsByUser();
     List<ProjectRequestDto> findProjectsByStatus(RequestStatusEnum requestStatusEnum);
+    List<ProjectRequestDto> findAllProjects();
     List<String> findEmailsByProject(Long id);
     ProjectRequestDto findProjectById(Long id);
     ProjectRequestDto createProject(ProjectRequestDto projectRequestDto);

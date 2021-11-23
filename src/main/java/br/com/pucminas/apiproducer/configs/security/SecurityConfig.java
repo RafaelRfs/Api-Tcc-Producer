@@ -2,6 +2,7 @@ package br.com.pucminas.apiproducer.configs.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,7 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/swagger-ui.html",
 			"/actuator/**",
 			"/actuator/health",
-			"/health/**"
+			"/health/**",
+			"/v1/api/projects/public",
+			"/v1/api/timelines/public"
 	};
 
 	@Override
@@ -41,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.disable()
 				.authorizeRequests()
 				.antMatchers(AUTH_LIST).permitAll()
+				.antMatchers(HttpMethod.POST, "/v1/api/notifications").permitAll()
 				.anyRequest()
 				.authenticated()
 				.and()

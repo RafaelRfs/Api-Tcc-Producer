@@ -12,7 +12,7 @@ public interface ProjectMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nome", source = "projectRequestDto.nome")
-    @Mapping(target = "cliente", source = "projectRequestDto.cliente")
+    @Mapping(target = "dataInicioProjeto", source = "projectRequestDto.dataInicioProjeto")
     @Mapping(target = "user", source = "user")
     @Mapping(target = "dataPrevisaoEntrega", source = "projectRequestDto.dataPrevisaoEntrega")
     @Mapping(target = "status", source = "projectRequestDto.status")
@@ -22,7 +22,7 @@ public interface ProjectMapper {
 
     @Mapping(target = "id", expression = "java(project.getId())")
     @Mapping(target = "nome",source = "project.nome")
-    @Mapping(target = "cliente",source = "project.cliente")
+    @Mapping(target = "dataInicioProjeto",source = "project.dataInicioProjeto")
     @Mapping(target = "usuarioId", expression = "java(project.getUser().getId())")
     @Mapping(target = "dataPrevisaoEntrega",source = "project.dataPrevisaoEntrega")
     @Mapping(target = "segmento.codigo", expression = "java(projeto.getArea()!= null? projeto.getArea().getCodigo() : null)")

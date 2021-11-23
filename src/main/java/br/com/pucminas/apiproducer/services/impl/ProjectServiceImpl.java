@@ -17,8 +17,10 @@ import br.com.pucminas.apiproducer.services.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -57,13 +59,13 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void processProjectsByDeadlineDateBetween(LocalDate dateNow, LocalDate dateFuture) {
 
-        List<Projeto> projectsWithDeadline =  projectRepository.findByDataPrevisaoEntregaBetween(
+        List<Projeto> projectsWithDeadline = projectRepository.findByDataPrevisaoEntregaBetween(
                 dateNow,
                 dateFuture
         );
 
         projectsWithDeadline.stream()
-                .peek(val -> log.info("Projeto perto do prazo de conclusão : "+val.getNome()))
+                .peek(val -> log.info("Projeto perto do prazo de conclusão : " + val.getNome()))
                 .collect(Collectors.toList());
     }
 
@@ -112,8 +114,7 @@ public class ProjectServiceImpl implements ProjectService {
                 String.format(ApiConstants.MSG_SUBJECT_NEW_PROJECT, project.getNome()),
                 String.format(
                         ApiConstants.MSG_BODY_PROJECT,
-                        project.getNome(),
-                        project.getCliente()
+                        project.getNome()
                 ),
                 Arrays.asList(user.getEmail())
         );
@@ -123,10 +124,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void updateProject(ProjectUpdateRequestDto projectUpdateRequestDto) {
         Projeto projeto = findEntityById(projectUpdateRequestDto.getId());
-        if(projectUpdateRequestDto.getStatus() != null) {
+        if (projectUpdateRequestDto.getStatus() != null) {
             projeto.setStatus(projectUpdateRequestDto.getStatus());
         }
-        projeto.setCliente(projectUpdateRequestDto.getCliente());
         projeto.setDataPrevisaoEntrega(projectUpdateRequestDto.getDataPrevisaoEntrega());
         projeto.setNome(projectUpdateRequestDto.getNome());
         projeto.setImg(projectUpdateRequestDto.getImg());
@@ -148,14 +148,14 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteUserAndStatusRelationship(Projeto project){
+    public void deleteUserAndStatusRelationship(Projeto project) {
         project.setStatus(null);
         project.setUser(null);
         projectRepository.saveAndFlush(project);
     }
 
     @Transactional(rollbackFor = RuntimeException.class)
-    public void delete(Long projectId){
+    public void delete(Long projectId) {
         projectRepository.delete(
                 findEntityById(projectId)
         );
@@ -202,8 +202,8 @@ public class ProjectServiceImpl implements ProjectService {
         return projectMapper.mapToListDto(
                 this.projectRepository.findByUserId(
                         authService
-                        .getCurrentUser()
-                        .getId()
+                                .getCurrentUser()
+                                .getId()
                 )
         );
     }
@@ -214,6 +214,16 @@ public class ProjectServiceImpl implements ProjectService {
                 projectRepository.findByUserIdAndStatusIn(
                         authService.getCurrentUser().getId(),
                         status.getStatus()
+                )
+        );
+    }
+
+    @Override
+    public List<ProjectRequestDto> findAllProjects() {
+        return projectMapper.mapToListDto(
+                projectRepository.findAll(
+                        Sort.by(Sort.Direction.DESC, "id")
+
                 )
         );
     }

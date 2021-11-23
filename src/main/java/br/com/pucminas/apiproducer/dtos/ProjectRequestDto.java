@@ -27,14 +27,16 @@ public class ProjectRequestDto implements Serializable {
     @NotBlank(message = "necessario informar o nome projeto")
     private String nome;
 
-    @NotBlank(message = "necessario informar o cliente projeto")
-    private String cliente;
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StatusEnum status;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StatusRequestDto statusData;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private LocalDate dataInicioProjeto;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

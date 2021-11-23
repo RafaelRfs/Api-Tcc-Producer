@@ -9,6 +9,7 @@ import br.com.pucminas.apiproducer.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 
@@ -52,21 +53,21 @@ public class ProjectsController extends AbsController {
     }
 
     @GetMapping("/by-segment/{segment}")
-    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum segment){
+    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum segment) {
         return ResponseEntity.ok(
                 projectService.findByArea(segment)
         );
     }
 
     @GetMapping("/by-segment/{segment}/by-status/{status}")
-    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum segment, @PathVariable RequestStatusEnum status){
+    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum segment, @PathVariable RequestStatusEnum status) {
         return ResponseEntity.ok(
-                projectService.findByAreaAndStatus(segment,status)
+                projectService.findByAreaAndStatus(segment, status)
         );
     }
 
     @GetMapping("/statistics")
-    public ResponseEntity<Object> findCount(){
+    public ResponseEntity<Object> findCount() {
         return ResponseEntity.ok(
                 projectService.findCountByArea()
         );
@@ -76,6 +77,15 @@ public class ProjectsController extends AbsController {
     public ResponseEntity<?> updateProject(@RequestBody @Valid ProjectUpdateRequestDto projectRequestDto) {
         projectService.updateProject(projectRequestDto);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/public")
+    public ResponseEntity<?> getAllProjects() {
+
+        return ResponseEntity.ok(
+                projectService.findAllProjects()
+        );
+
     }
 
 }
