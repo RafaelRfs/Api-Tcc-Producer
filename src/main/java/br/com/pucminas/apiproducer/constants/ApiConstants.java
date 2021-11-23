@@ -22,5 +22,6 @@ public class ApiConstants {
     public static final String MSG_ERROR_USER_NOT_FOUND = "Usuario não encontrado";
     public static final String MSG_ERROR_STATUS_INVALID = "Valor de Status invalido";
     public static final String MSG_ERROR_EVENT_INVALID = "Valor de Evento invalido";
+    public static final String MSG_ERROR_AREA_INVALID = "Valor de Area invalida";
     private ApiConstants(){}
 }

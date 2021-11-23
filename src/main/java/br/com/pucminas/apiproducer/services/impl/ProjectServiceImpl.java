@@ -1,11 +1,13 @@
 package br.com.pucminas.apiproducer.services.impl;
 
 import br.com.pucminas.apiproducer.constants.ApiConstants;
+import br.com.pucminas.apiproducer.dtos.CountDataRequestDto;
 import br.com.pucminas.apiproducer.dtos.NotificationRequestDto;
 import br.com.pucminas.apiproducer.dtos.ProjectRequestDto;
 import br.com.pucminas.apiproducer.dtos.ProjectUpdateRequestDto;
 import br.com.pucminas.apiproducer.entities.Projeto;
 import br.com.pucminas.apiproducer.entities.User;
+import br.com.pucminas.apiproducer.enums.AreasEnum;
 import br.com.pucminas.apiproducer.enums.RequestStatusEnum;
 import br.com.pucminas.apiproducer.exceptions.ProjectNotFoundException;
 import br.com.pucminas.apiproducer.mappers.ProjectMapper;
@@ -17,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +55,29 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectRequestDto> findProjectByDateBetween(LocalDate dateNow, LocalDate dateFuture) {
         return null;
+    }
+
+    @Override
+    public List<ProjectRequestDto> findByArea(AreasEnum area) {
+        return projectMapper.mapToListDto(
+                projectRepository.findByArea(area)
+        );
+    }
+
+    @Override
+    public List<ProjectRequestDto> findByAreaAndStatus(AreasEnum area, RequestStatusEnum requestStatusEnum) {
+        return projectMapper.mapToListDto(
+                projectRepository.findByAreaAndStatusIn(area, requestStatusEnum.getStatus())
+        );
+    }
+
+    @Override
+    public List<CountDataRequestDto> findCountByArea() {
+        return projectRepository.findByCount(
+                Arrays.asList(
+                        AreasEnum.values()
+                )
+        );
     }
 
     private void addNotification(User user, Projeto project) {
@@ -95,6 +119,8 @@ public class ProjectServiceImpl implements ProjectService {
         projeto.setCliente(projectUpdateRequestDto.getCliente());
         projeto.setDataPrevisaoEntrega(projectUpdateRequestDto.getDataPrevisaoEntrega());
         projeto.setNome(projectUpdateRequestDto.getNome());
+        projeto.setImg(projectUpdateRequestDto.getImg());
+        projeto.setArea(projectUpdateRequestDto.getSegmento());
 
         projectRepository.save(projeto);
     }

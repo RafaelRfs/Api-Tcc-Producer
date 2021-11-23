@@ -17,16 +17,16 @@ import static br.com.pucminas.apiproducer.utils.Helpers.validateStringEquals;
 @Getter
 @AllArgsConstructor
 public enum StatusEnum {
-    INICIADO(1, "Iniciado", "Iniciado", "play-circle", "project-status-gray"),
-    AGUARDANDO_PAGAMENTO(2, "Aguardando pagamento", "Aguardando pagamento", "clock", "project-status-yellow"),
-    PAGAMENTO_EFETUADO(3, "Pagamento Efetuado", "Pagamento Efetuado", "check-circle", "project-status-green"),
-    EM_ANDAMENTO(4, "Em Andamento", "Em Andamento", "tasks", "project-status-gray"),
-    AGUARDANDO_INFORMACOES(5, "Aguardando informações", "Aguardando informações", "clock", "project-status-yellow"),
-    ANALISANDO_INFORMACOES(6, "Analisando informações", "Analisando informações", "search", "project-status-gray"),
-    AGUARDANDO_APROVACAO(7, "Aguardando aprovação", "Aguardando aprovação ", "clock", "project-status-yellow"),
-    APROVADO(8, "Aprovado", " Aprovado ", "check-circle", "project-status-green"),
+    EM_ESCOPO(1, "Em Escopo", "Em Escopo", "play-circle", "project-status-gray"),
+    EM_APROVACAO_DA_CAMARA(2, "Em aprovação da camara", "Em aprovação da camara", "clock", "project-status-yellow"),
+    APROVADO_CAMARA_MUNICIPAL(3, "Aprovado Camara Municipal", "Aprovado Camara Municipal", "check-circle", "project-status-green"),
+    REPROVADO_CAMARA_MUNICIPAL(4, "Reprovado Camara Municipal", "Reprovado Camara Municipal", "tasks", "project-status-gray"),
+    EM_ANDAMENTO(5, "Em Andamento", "Em Andamento", "clock", "project-status-yellow"),
+    EM_VIGOR(6, "Analisando informações", "Analisando informações", "search", "project-status-gray"),
+    EM_FUNCIONAMENTO(7, "Aguardando aprovação", "Aguardando aprovação ", "clock", "project-status-yellow"),
+    AGUARDANDO_INFORMACOES(8, "Aguardando Informacoes","Aguardando Informações","clock", "project-status-yellow"),
+    CONSTRUIDO(8, "Construido", " Construido ", "check-circle", "project-status-green"),
     CONCLUIDO(9, "Concluido", "Concluido", "thumbtack", "project-status-blue");
-
 
     private Integer id;
     private String nome;

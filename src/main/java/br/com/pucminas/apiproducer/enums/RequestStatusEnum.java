@@ -11,24 +11,26 @@ public enum RequestStatusEnum {
 
     EM_ANDAMENTO(
             Arrays.asList(
-                    StatusEnum.ANALISANDO_INFORMACOES,
-                    StatusEnum.PAGAMENTO_EFETUADO,
-                    StatusEnum.INICIADO,
-                    StatusEnum.APROVADO,
+                    StatusEnum.EM_ESCOPO,
+                    StatusEnum.EM_APROVACAO_DA_CAMARA,
+                    StatusEnum.APROVADO_CAMARA_MUNICIPAL,
                     StatusEnum.EM_ANDAMENTO
             )
     ),
 
-    AGUARDANDO_CLIENTE(
+    AGUARDANDO(
             Arrays.asList(
-                    StatusEnum.AGUARDANDO_PAGAMENTO,
-                    StatusEnum.AGUARDANDO_APROVACAO,
+                    StatusEnum.EM_APROVACAO_DA_CAMARA,
                     StatusEnum.AGUARDANDO_INFORMACOES
             )
     ),
     FINALIZADO(
             Arrays.asList(
-                    StatusEnum.CONCLUIDO
+                    StatusEnum.REPROVADO_CAMARA_MUNICIPAL,
+                    StatusEnum.EM_VIGOR,
+                    StatusEnum.CONCLUIDO,
+                    StatusEnum.CONSTRUIDO
+
             )
     );
 

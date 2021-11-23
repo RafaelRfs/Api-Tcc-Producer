@@ -40,4 +40,7 @@ public class TimelineUpdateRequestDto {
 
     private Boolean alerta;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String img;
+
 }

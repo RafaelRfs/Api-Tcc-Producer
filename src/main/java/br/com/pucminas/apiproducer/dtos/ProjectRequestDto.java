@@ -1,5 +1,6 @@
 package br.com.pucminas.apiproducer.dtos;
 
+import br.com.pucminas.apiproducer.enums.AreasEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -39,4 +40,13 @@ public class ProjectRequestDto implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull(message = "necessario informar o campo data previsao entrega do projeto")
     private LocalDate dataPrevisaoEntrega;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private AreasEnum segmentoId;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private AreasRequestDto segmento;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String img;
 }

@@ -1,8 +1,9 @@
 package br.com.pucminas.apiproducer.entities;
 
+import br.com.pucminas.apiproducer.enums.AreasEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -36,5 +37,11 @@ public class Projeto implements Serializable {
 
     @Column(name = "status")
     private StatusEnum status;
+
+    @Column(name = "area")
+    private AreasEnum area;
+
+    @Column(name = "img")
+    private String img;
 
 }

@@ -86,6 +86,7 @@ public class TimelineServiceImpl implements TimelineService {
         timeline.setUrl(timelineUpdateRequestDto.getUrl());
         timeline.setStatus(timelineUpdateRequestDto.getStatus());
         timeline.setLegenda(timelineUpdateRequestDto.getLegenda());
+        timeline.setImg(timelineUpdateRequestDto.getImg());
         timelineRepository.save(timeline);
     }
 
@@ -105,7 +106,7 @@ public class TimelineServiceImpl implements TimelineService {
                 TimelineRequestDto.builder()
                         .dataPostagem(LocalDateTime.now())
                         .descricao(description)
-                        .statusId(StatusEnum.INICIADO)
+                        .statusId(StatusEnum.EM_ESCOPO)
                         .build(), project
         );
     }

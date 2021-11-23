@@ -1,8 +1,10 @@
 package br.com.pucminas.apiproducer.dtos;
 
 
+import br.com.pucminas.apiproducer.enums.AreasEnum;
 import br.com.pucminas.apiproducer.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -35,4 +37,10 @@ public class ProjectUpdateRequestDto implements Serializable {
     private LocalDate dataPrevisaoEntrega;
 
     private StatusEnum status;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private AreasEnum segmento;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String img;
 }

@@ -42,4 +42,7 @@ public class TimelineRequestDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StatusRequestDto status;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String img;
+
 }

@@ -16,6 +16,8 @@ public interface ProjectMapper {
     @Mapping(target = "user", source = "user")
     @Mapping(target = "dataPrevisaoEntrega", source = "projectRequestDto.dataPrevisaoEntrega")
     @Mapping(target = "status", source = "projectRequestDto.status")
+    @Mapping(target = "area", source = "projectRequestDto.segmentoId")
+    @Mapping(target = "img", source = "projectRequestDto.img")
     Projeto map(ProjectRequestDto projectRequestDto, User user);
 
     @Mapping(target = "id", expression = "java(project.getId())")
@@ -23,7 +25,10 @@ public interface ProjectMapper {
     @Mapping(target = "cliente",source = "project.cliente")
     @Mapping(target = "usuarioId", expression = "java(project.getUser().getId())")
     @Mapping(target = "dataPrevisaoEntrega",source = "project.dataPrevisaoEntrega")
+    @Mapping(target = "segmento.codigo", expression = "java(projeto.getArea()!= null? projeto.getArea().getCodigo() : null)")
+    @Mapping(target = "segmento.nome", expression = "java(projeto.getArea()!= null? projeto.getArea().getNome() : null)")
     @Mapping(target = "status", source = "status")
+    @Mapping(target = "img", source = "img")
     @Mapping(target = "statusData.id", expression ="java(projeto.getStatus()!= null ? projeto.getStatus().getId() : null)")
     @Mapping(target = "statusData.nome", expression ="java(projeto.getStatus()!= null ? projeto.getStatus().getNome() : null )")
     @Mapping(target = "statusData.icone", expression ="java(projeto.getStatus()!= null ? projeto.getStatus().getIcone() : null)")

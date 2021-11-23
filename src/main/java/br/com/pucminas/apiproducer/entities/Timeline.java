@@ -1,6 +1,7 @@
 package br.com.pucminas.apiproducer.entities;
 
 import br.com.pucminas.apiproducer.enums.StatusEnum;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,4 +41,7 @@ public class Timeline implements Serializable {
 
     @Column(name = "legenda")
     private String legenda;
+
+    @Column(name = "img")
+    private String img;
 }

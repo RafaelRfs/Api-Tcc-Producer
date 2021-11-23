@@ -3,12 +3,14 @@ package br.com.pucminas.apiproducer.controllers;
 import br.com.pucminas.apiproducer.constants.EndpointsConstants;
 import br.com.pucminas.apiproducer.dtos.ProjectRequestDto;
 import br.com.pucminas.apiproducer.dtos.ProjectUpdateRequestDto;
+import br.com.pucminas.apiproducer.enums.AreasEnum;
 import br.com.pucminas.apiproducer.enums.RequestStatusEnum;
 import br.com.pucminas.apiproducer.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+
 
 @CrossOrigin
 @RestController
@@ -47,6 +49,27 @@ public class ProjectsController extends AbsController {
     public ResponseEntity<Object> findProjectsByStatus(@PathVariable RequestStatusEnum status) {
         return ResponseEntity
                 .ok(projectService.findProjectsByStatus(status));
+    }
+
+    @GetMapping("/by-segment/{segment}")
+    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum area){
+        return ResponseEntity.ok(
+                projectService.findByArea(area)
+        );
+    }
+
+    @GetMapping("/by-segment/{segment}/by-status/{status}")
+    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum area, @PathVariable RequestStatusEnum status){
+        return ResponseEntity.ok(
+                projectService.findByAreaAndStatus(area,status)
+        );
+    }
+
+    @GetMapping("/statistics")
+    public ResponseEntity<Object> findCount(){
+        return ResponseEntity.ok(
+                projectService.findCountByArea()
+        );
     }
 
     @PutMapping
