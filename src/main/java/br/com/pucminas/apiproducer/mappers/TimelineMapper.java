@@ -17,7 +17,7 @@ public interface TimelineMapper {
     @Mapping(target = "dataPostagem", source = "timelineRequestDto.dataPostagem")
     @Mapping(target = "status", source = "timelineRequestDto.statusId")
     @Mapping(target = "legenda", source = "timelineRequestDto.legenda")
-    @Mapping(target = "img", source = "timelineRequestDto.legenda")
+    @Mapping(target = "img", source = "timelineRequestDto.img")
     Timeline map(TimelineRequestDto timelineRequestDto, Projeto project);
 
     @Mapping(target = "id", source = "id")
