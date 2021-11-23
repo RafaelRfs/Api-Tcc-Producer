@@ -46,6 +46,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     @Transactional
     public ProjectRequestDto createProject(ProjectRequestDto projectRequestDto) {
+        projectRequestDto.setDataInicioProjeto(LocalDate.now());
         User user = authService.getCurrentUser();
         Projeto project = projectMapper.map(projectRequestDto, user);
         project = projectRepository.save(project);
