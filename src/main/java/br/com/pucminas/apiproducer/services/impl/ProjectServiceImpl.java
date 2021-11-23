@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_ERROR_PROJECT_NOT_FOUND;
 import static br.com.pucminas.apiproducer.constants.ApiConstants.MSG_PROJECT_STARTED;
 
@@ -53,8 +55,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectRequestDto> findProjectByDateBetween(LocalDate dateNow, LocalDate dateFuture) {
-        return null;
+    public void processProjectsByDeadlineDateBetween(LocalDate dateNow, LocalDate dateFuture) {
+
+        List<Projeto> projectsWithDeadline =  projectRepository.findByDataPrevisaoEntregaBetween(
+                dateNow,
+                dateFuture
+        );
+
+        projectsWithDeadline.stream()
+                .peek(val -> log.info("Projeto perto do prazo de conclusão : "+val.getNome()))
+                .collect(Collectors.toList());
     }
 
     @Override

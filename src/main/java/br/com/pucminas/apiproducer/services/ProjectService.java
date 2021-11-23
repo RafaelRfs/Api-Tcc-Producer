@@ -19,7 +19,7 @@ public interface ProjectService {
     List<String> findEmailsByProject(Long id);
     ProjectRequestDto findProjectById(Long id);
     ProjectRequestDto createProject(ProjectRequestDto projectRequestDto);
-    List<ProjectRequestDto> findProjectByDateBetween(LocalDate dateNow, LocalDate dateFuture);
+    void processProjectsByDeadlineDateBetween(LocalDate dateNow, LocalDate dateFuture);
     List<ProjectRequestDto> findByArea(AreasEnum areas);
     List<ProjectRequestDto> findByAreaAndStatus(AreasEnum areas, RequestStatusEnum requestStatusEnum);
     List<CountDataRequestDto> findCountByArea();

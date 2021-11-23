@@ -7,6 +7,8 @@ import br.com.pucminas.apiproducer.enums.StatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,5 +29,7 @@ public interface ProjetoRepository extends JpaRepository<Projeto,Long> {
             " P.area " +
             " ) from Projeto P where area in( :areas ) GROUP BY P.area")
     List<CountDataRequestDto> findByCount(List<AreasEnum> areas);
+
+    List<Projeto> findByDataPrevisaoEntregaBetween(LocalDate dateNow, LocalDate dateFuture);
 
 }
