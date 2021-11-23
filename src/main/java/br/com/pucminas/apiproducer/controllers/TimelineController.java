@@ -65,4 +65,11 @@ public class TimelineController extends AbsController {
         );
     }
 
+    @GetMapping("/public/by-project/{projectId}")
+    public ResponseEntity<List<TimelineRequestDto>> findTimelines(@PathVariable Long projectId){
+        return ResponseEntity.ok(
+                timelineService.findTimelinesByProjectId(projectId)
+        );
+    }
+
 }
