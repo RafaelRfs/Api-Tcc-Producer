@@ -52,16 +52,16 @@ public class ProjectsController extends AbsController {
     }
 
     @GetMapping("/by-segment/{segment}")
-    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum area){
+    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum segment){
         return ResponseEntity.ok(
-                projectService.findByArea(area)
+                projectService.findByArea(segment)
         );
     }
 
     @GetMapping("/by-segment/{segment}/by-status/{status}")
-    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum area, @PathVariable RequestStatusEnum status){
+    public ResponseEntity<Object> findBySegment(@PathVariable AreasEnum segment, @PathVariable RequestStatusEnum status){
         return ResponseEntity.ok(
-                projectService.findByAreaAndStatus(area,status)
+                projectService.findByAreaAndStatus(segment,status)
         );
     }
 

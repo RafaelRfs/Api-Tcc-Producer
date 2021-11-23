@@ -18,7 +18,7 @@ public enum RequestStatusEnum {
             )
     ),
 
-    AGUARDANDO(
+    AGUARDANDO_CLIENTE(
             Arrays.asList(
                     StatusEnum.EM_APROVACAO_DA_CAMARA,
                     StatusEnum.AGUARDANDO_INFORMACOES
