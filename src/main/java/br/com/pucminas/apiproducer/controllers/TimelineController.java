@@ -30,7 +30,7 @@ public class TimelineController extends AbsController {
     }
 
     @PutMapping
-    public ResponseEntity<?> createTimeline(@RequestBody @Valid TimelineUpdateRequestDto request) {
+    public ResponseEntity<?> updateTimeline(@RequestBody @Valid TimelineUpdateRequestDto request) {
         timelineService.updateTimeline(request);
         return ResponseEntity.noContent().build();
     }
