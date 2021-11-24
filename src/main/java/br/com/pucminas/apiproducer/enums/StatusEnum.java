@@ -17,8 +17,8 @@ import static br.com.pucminas.apiproducer.utils.Helpers.validateStringEquals;
 @Getter
 @AllArgsConstructor
 public enum StatusEnum {
-    EM_ESCOPO(1, "Em Escopo", "Em Escopo", "play-circle", "project-status-gray"),
-    EM_APROVACAO_DA_CAMARA(2, "Em aprovação da camara", "Em aprovação da camara", "clock", "project-status-yellow"),
+    EM_PAUTA_PARA_DISCUSSAO(1, "Em Pauta para Discussao", "Em Pauta para Discussão", "play-circle", "project-status-gray"),
+    EM_APROVACAO_DA_CAMARA(2, "Em aprovacao da camara", "Em aprovação da camara", "clock", "project-status-yellow"),
     APROVADO_CAMARA_MUNICIPAL(3, "Aprovado Camara Municipal", "Aprovado Camara Municipal", "check-circle", "project-status-green"),
     REPROVADO_CAMARA_MUNICIPAL(4, "Reprovado Camara Municipal", "Reprovado Camara Municipal", "tasks", "project-status-gray"),
     EM_ANDAMENTO(5, "Em Andamento", "Em Andamento", "clock", "project-status-yellow"),

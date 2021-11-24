@@ -8,6 +8,13 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public enum RequestStatusEnum {
+    EM_APROVACAO(
+            Arrays.asList(
+                    StatusEnum.EM_PAUTA_PARA_DISCUSSAO,
+                    StatusEnum.AGUARDANDO_INFORMACOES,
+                    StatusEnum.EM_APROVACAO_DA_CAMARA
+            )
+    ),
 
     EM_ANDAMENTO(
             Arrays.asList(
@@ -15,14 +22,6 @@ public enum RequestStatusEnum {
                     StatusEnum.EM_ANDAMENTO
             )
     ),
-    EM_APROVACAO(
-            Arrays.asList(
-                    StatusEnum.EM_ESCOPO,
-                    StatusEnum.AGUARDANDO_INFORMACOES,
-                    StatusEnum.EM_APROVACAO_DA_CAMARA
-            )
-    )
-    ,
     CONCLUIDO(
             Arrays.asList(
                     StatusEnum.REPROVADO_CAMARA_MUNICIPAL,

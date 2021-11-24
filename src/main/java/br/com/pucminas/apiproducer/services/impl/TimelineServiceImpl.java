@@ -106,7 +106,7 @@ public class TimelineServiceImpl implements TimelineService {
                 TimelineRequestDto.builder()
                         .dataPostagem(LocalDateTime.now())
                         .descricao(description)
-                        .statusId(StatusEnum.EM_ESCOPO)
+                        .statusId(StatusEnum.EM_PAUTA_PARA_DISCUSSAO)
                         .build(), project
         );
     }
