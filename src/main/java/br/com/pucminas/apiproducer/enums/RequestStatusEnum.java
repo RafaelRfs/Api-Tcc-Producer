@@ -11,19 +11,18 @@ public enum RequestStatusEnum {
 
     EM_ANDAMENTO(
             Arrays.asList(
-                    StatusEnum.EM_ESCOPO,
-                    StatusEnum.EM_APROVACAO_DA_CAMARA,
                     StatusEnum.APROVADO_CAMARA_MUNICIPAL,
                     StatusEnum.EM_ANDAMENTO
             )
     ),
-
-    EM_PAUTA(
+    EM_APROVACAO(
             Arrays.asList(
-                    StatusEnum.EM_APROVACAO_DA_CAMARA,
-                    StatusEnum.AGUARDANDO_INFORMACOES
+                    StatusEnum.EM_ESCOPO,
+                    StatusEnum.AGUARDANDO_INFORMACOES,
+                    StatusEnum.EM_APROVACAO_DA_CAMARA
             )
-    ),
+    )
+    ,
     CONCLUIDO(
             Arrays.asList(
                     StatusEnum.REPROVADO_CAMARA_MUNICIPAL,
