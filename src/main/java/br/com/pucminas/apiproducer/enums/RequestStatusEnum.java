@@ -18,13 +18,13 @@ public enum RequestStatusEnum {
             )
     ),
 
-    AGUARDANDO_CLIENTE(
+    EM_PAUTA(
             Arrays.asList(
                     StatusEnum.EM_APROVACAO_DA_CAMARA,
                     StatusEnum.AGUARDANDO_INFORMACOES
             )
     ),
-    FINALIZADO(
+    CONCLUIDO(
             Arrays.asList(
                     StatusEnum.REPROVADO_CAMARA_MUNICIPAL,
                     StatusEnum.EM_VIGOR,
