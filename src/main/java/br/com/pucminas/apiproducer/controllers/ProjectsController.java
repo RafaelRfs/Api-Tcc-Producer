@@ -88,4 +88,14 @@ public class ProjectsController extends AbsController {
 
     }
 
+    @GetMapping("/public/by-status/{status}")
+    public ResponseEntity<?> getAllProjectsByStatus(@PathVariable RequestStatusEnum status) {
+        return ResponseEntity.ok(
+                projectService.findAllProjectsByStatus(status)
+        );
+    }
+
+
+
+
 }

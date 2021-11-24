@@ -220,6 +220,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<ProjectRequestDto> findAllProjectsByStatus(RequestStatusEnum requestStatusEnum) {
+        return projectMapper.mapToListDto(
+                projectRepository.findByStatusIn(requestStatusEnum.getStatus())
+        );
+    }
+
+    @Override
     public List<ProjectRequestDto> findAllProjects() {
         return projectMapper.mapToListDto(
                 projectRepository.findAll(
