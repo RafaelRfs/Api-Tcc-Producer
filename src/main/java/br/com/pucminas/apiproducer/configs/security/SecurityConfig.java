@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/actuator/**",
 			"/actuator/health",
 			"/health/**",
-			"/v1/api/projects/public",
+			"/v1/api/projects/public/**",
 			"/v1/api/timelines/public/**",
 			"/v1/api/segments",
 			"v1/api/projects/statistics"
