@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import br.com.pucminas.apiproducer.configs.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
@@ -27,6 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] AUTH_LIST = {
 			"/api/auth/**",
 			"/v3/api-docs/**",
+			"swagger-ui/**",
+			"/v3/api-docs/swagger-config",
+			"swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config",
 			"/swagger-ui/3.49.0/**",
 			"/swagger-ui.html",
 			"/actuator/**",
@@ -74,5 +79,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
+
 	
 }
