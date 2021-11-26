@@ -22,8 +22,8 @@ public enum StatusEnum {
     APROVADO_CAMARA_MUNICIPAL(3, "Aprovado Camara Municipal", "Aprovado Camara Municipal", "check-circle", "project-status-green"),
     REPROVADO_CAMARA_MUNICIPAL(4, "Reprovado Camara Municipal", "Reprovado Camara Municipal", "tasks", "project-status-gray"),
     EM_ANDAMENTO(5, "Em Andamento", "Em Andamento", "clock", "project-status-yellow"),
-    EM_VIGOR(6, "Analisando informações", "Analisando informações", "search", "project-status-gray"),
-    EM_FUNCIONAMENTO(7, "Aguardando aprovação", "Aguardando aprovação ", "clock", "project-status-yellow"),
+    EM_VIGOR(6, "Em Vigor", "Em Vigor", "search", "project-status-gray"),
+    EM_FUNCIONAMENTO(7, "Em Funcionamento", "Em Funcionamento ", "clock", "project-status-yellow"),
     AGUARDANDO_INFORMACOES(8, "Aguardando Informacoes","Aguardando Informações","clock", "project-status-yellow"),
     CONSTRUIDO(8, "Construido", " Construido ", "check-circle", "project-status-green"),
     CONCLUIDO(9, "Concluido", "Concluido", "thumbtack", "project-status-blue");
