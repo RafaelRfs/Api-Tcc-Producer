@@ -117,7 +117,8 @@ public class ProjectServiceImpl implements ProjectService {
                         ApiConstants.MSG_BODY_PROJECT,
                         project.getNome()
                 ),
-                Arrays.asList(user.getEmail())
+                Arrays.asList(user.getEmail()),
+                project.getId()
         );
     }
 

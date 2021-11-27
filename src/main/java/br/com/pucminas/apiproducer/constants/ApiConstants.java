@@ -6,14 +6,14 @@ public class ApiConstants {
     public static final String EMAIL_REGEX = "[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+";
     public static final String TASK_EXECUTOR = "task_executor_tcc";
     public static final String THREAD_POOL_TASK = "threadPoolTaskExecutor";
-    public static final String MSG_SUBJECT_NEW_PROJECT = "Novo Projeto %s Criado: {}";
+    public static final String MSG_SUBJECT_NEW_PROJECT = "Novo Projeto da Prefeitura: %s {}";
     public static final String MSG_BODY_PROJECT = " Projeto: %s ";
     public static final String MSG_USER_NOT_AUTHORIZED = " Ação não permitida para o seu usuário ";
     public static final String MSG_ERROR_EMAIL_EXISTS = "Novo email ja existente na base de dados";
     public static final String MSG_CONFIRMATION_NEW_PASS_INVALID = " senha de confirmacao diferente da nova senha";
     public static final String MSG_ERROR_PROJECT_NOT_FOUND = "projeto nao encontrado";
     public static final String MSG_PROJECT_STARTED = "Projeto criado por %s";
-    public static final String MSG_NEW_TIMELINE = "Nova Timeline Criada";
+    public static final String MSG_NEW_TIMELINE = "Novidades da Prefeitura de Bom Destino";
     public static final String MSG_NEW_TIMELINE_CREATED = "Nova timeline %s criada para o projeto: %s";
     public static final String MSG_ERROR_TIMELINE_NOT_FOUND = "Timeline nao encontrada";
     public static final String MSG_ERROR_EMAIL_NOTIFICATICATION = "Email ja cadastrado para o projeto informado";
@@ -23,5 +23,6 @@ public class ApiConstants {
     public static final String MSG_ERROR_STATUS_INVALID = "Valor de Status invalido";
     public static final String MSG_ERROR_EVENT_INVALID = "Valor de Evento invalido";
     public static final String MSG_ERROR_AREA_INVALID = "Valor de Area invalida";
+    public static final String URL_SITE_FRONTEND = "https://frontend-projetos-tcc.herokuapp.com/timeline/";
     private ApiConstants(){}
 }

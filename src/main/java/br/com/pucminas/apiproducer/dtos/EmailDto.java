@@ -19,4 +19,5 @@ public class EmailDto implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<String> emails;
     private String corpo;
+    private Long projeto;
 }

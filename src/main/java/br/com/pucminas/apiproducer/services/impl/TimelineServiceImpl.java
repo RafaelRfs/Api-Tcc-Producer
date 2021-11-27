@@ -64,8 +64,9 @@ public class TimelineServiceImpl implements TimelineService {
             emailProducerService.sendEmail(
                     UUID.randomUUID().toString(),
                     ApiConstants.MSG_NEW_TIMELINE,
-                    String.format(ApiConstants.MSG_NEW_TIMELINE_CREATED, timelineRequestDto.getDescricao(), project.getNome()),
-                    projectService.findEmailsByProject(project.getId())
+                     timelineRequestDto.getDescricao(),
+                    projectService.findEmailsByProject(project.getId()),
+                    project.getId()
             );
         }
         return response;

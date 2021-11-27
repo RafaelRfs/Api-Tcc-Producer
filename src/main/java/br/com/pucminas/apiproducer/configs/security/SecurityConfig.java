@@ -16,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import br.com.pucminas.apiproducer.configs.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity

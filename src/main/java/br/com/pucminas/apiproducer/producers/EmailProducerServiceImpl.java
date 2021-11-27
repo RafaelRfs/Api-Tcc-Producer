@@ -24,7 +24,7 @@ public class EmailProducerServiceImpl implements EmailProducerService{
     }
 
     @Override
-    public void sendEmail(String uuid, String subject, String body, List<String> emails) {
+    public void sendEmail(String uuid, String subject, String body, List<String> emails,Long projetoId) {
         sendDataQueue(
                 EmailDto.builder()
                         .uuid(uuid)
@@ -33,6 +33,7 @@ public class EmailProducerServiceImpl implements EmailProducerService{
                         .assunto(subject)
                         .corpo(body)
                         .emails(emails)
+                        .projeto(projetoId)
                         .build()
         );
     }
