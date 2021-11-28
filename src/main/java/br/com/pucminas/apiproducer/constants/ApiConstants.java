@@ -14,15 +14,12 @@ public class ApiConstants {
     public static final String MSG_ERROR_PROJECT_NOT_FOUND = "projeto nao encontrado";
     public static final String MSG_PROJECT_STARTED = "Projeto criado por %s";
     public static final String MSG_NEW_TIMELINE = "Novidades da Prefeitura de Bom Destino";
-    public static final String MSG_NEW_TIMELINE_CREATED = "Nova timeline %s criada para o projeto: %s";
     public static final String MSG_ERROR_TIMELINE_NOT_FOUND = "Timeline nao encontrada";
     public static final String MSG_ERROR_EMAIL_NOTIFICATICATION = "Email ja cadastrado para o projeto informado";
     public static final String MSG_ERROR_NOTIFICATION_NOT_FOUND = "Notificação nao encontrada";
     public static final String MSG_ERROR = "Usuario já cadastrado no banco de dados";
     public static final String MSG_ERROR_USER_NOT_FOUND = "Usuario não encontrado";
     public static final String MSG_ERROR_STATUS_INVALID = "Valor de Status invalido";
-    public static final String MSG_ERROR_EVENT_INVALID = "Valor de Evento invalido";
     public static final String MSG_ERROR_AREA_INVALID = "Valor de Area invalida";
-    public static final String URL_SITE_FRONTEND = "https://frontend-projetos-tcc.herokuapp.com/timeline/";
     private ApiConstants(){}
 }
