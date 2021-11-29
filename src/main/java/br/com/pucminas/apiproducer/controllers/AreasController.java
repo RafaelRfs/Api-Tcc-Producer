@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(EndpointsConstants.AREAS_ENDPOINT)
-public class AreasController {
+public class AreasController extends AbsController{
 
     @GetMapping
     public ResponseEntity<List<AreasRequestDto>> getAreas(){
