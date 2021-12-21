@@ -38,6 +38,7 @@ public class JwtProvider {
             InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(keyStoreConfig.getPath());
             keyStore.load(resourceAsStream, keyStoreConfig.getSecret().toCharArray());
         } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException e) {
+            log.error("Error: {}",e.getMessage());
             throw new AppException("Um erro ao aconteceu ao processar o KeyStore");
         }
     }

@@ -4,9 +4,9 @@ services:
   tcc-postgres-compose:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: "postgreABC"
+      POSTGRES_PASSWORD: "abc123"
     ports:
-      - "15432:5432"
+      - "5432:5432"
     volumes:
       - ./postresql-data:/var/lib/postgresql/data 
     networks:
